@@ -1,6 +1,6 @@
 site_name: caijiqhx notes
 site_author: caijiqhx
-site_url: https://caijiqhx-notes.readthedocs.io
+# site_url: https://caijiqhx-notes.readthedocs.io
 
 # Repository
 repo_name: caijiqhx/Notes
@@ -23,8 +23,11 @@ nav:
       - 栈介绍: sec_tech/stackoverflow/stack_introduction.md
   - 逆向分析:
       - reverse/index.md
-
+      - 加密与解密:
+          - chapter 1: reverse/加密与解密/ch1.md
+          - chapter 2: reverse/加密与解密/ch2.md
   - C++:
+      - cpp/index.md
       - C++ 11/14 快速上手:
           - 简介: cpp/c++_11_14/0.md
           - 语言可用性的强化: cpp/c++_11_14/1.md
@@ -36,6 +39,44 @@ nav:
           - 其他杂项: cpp/c++_11_14/7.md
           - C++17 简介: cpp/c++_11_14/8.md
       - STL 学习: cpp/stl_learning.md
+  - leetcode:
+      - leetcode/index.md
+      - 链表:
+          - leetcode/list/index.md
+          - leetcode/list/160.md
+          - leetcode/list/206.md
+          - leetcode/list/21.md
+          - leetcode/list/83.md
+          - leetcode/list/234.md
+          - leetcode/list/141.md
+          - leetcode/list/203.md
+          - leetcode/list/237.md
+          - leetcode/list/876.md
+          - leetcode/list/1290.md
+          - leetcode/list/ci0201.md
+          - leetcode/list/19.md
+          - leetcode/list/24.md
+          - leetcode/list/445.md
+          - leetcode/list/725.md
+          - leetcode/list/25.md
+      - 二分查找:
+          - leetcode/binary_search/index.md
+          - leetcode/binary_search/69.md
+          - leetcode/binary_search/35.md
+          - leetcode/binary_search/704.md
+          - leetcode/binary_search/278.md
+      - 字符串:
+          - leetcode/string/index.md
+          - leetcode/string/242.md
+          - leetcode/string/409.md
+          - leetcode/string/205.md
+          - leetcode/string/833.md
+          - leetcode/string/8.md
+      - 树:
+          - leetcode/tree/index.md
+  - 剑指 Offer:
+      - offer/index.md
+      - offer/of03.md
 
 # Customization
 extra_javascript:
