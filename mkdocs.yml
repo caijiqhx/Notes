@@ -77,11 +77,18 @@ nav:
   - 剑指 Offer:
       - offer/index.md
       - offer/of03.md
+      - offer/of04.md
+      - offer/of05.md
+      - offer/of06.md
+      - offer/of07.md
 
 # Customization
 extra_javascript:
   - "static/js/extra.js"
   - "https://cdnjs.loli.net/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"
+
+extra_css:
+  - "static/css/extra.css"
 
 # theme
 theme:
@@ -97,7 +104,8 @@ theme:
     code: "Source Code Pro"
 
 markdown_extensions:
+  - footnotes
   - toc:
-      permalink: true
+      permalink: link
   - codehilite
   - pymdownx.arithmatex
