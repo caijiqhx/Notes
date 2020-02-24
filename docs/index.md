@@ -68,6 +68,7 @@
 <button data-md-color-accent="amber">Amber</button>
 <button data-md-color-accent="orange">Orange</button>
 <button data-md-color-accent="deep-orange">Deep Orange</button>
+<button data-md-color-accent="black">Black</button>
 
 <script>
   var buttons = document.querySelectorAll("button[data-md-color-accent]");

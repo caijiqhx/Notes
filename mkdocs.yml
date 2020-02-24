@@ -1,6 +1,6 @@
 site_name: caijiqhx notes
 site_author: caijiqhx
-# site_url: https://caijiqhx-notes.readthedocs.io
+site_url: https://caijiqhx-notes.readthedocs.io
 
 # Repository
 repo_name: caijiqhx/Notes
@@ -13,7 +13,8 @@ nav:
   - Introduction:
       - index.md
   - 常用工具:
-      - 文档工具: tools/mkdocs.md
+      - mkdocs: tools/mkdocs.md
+      - vim: tools/vim.md
       - 部署工具:
           - Docker 简介: tools/docker/docker_introduction.md
           - Dockerfile: tools/docker/dockerfile.md
@@ -65,6 +66,8 @@ nav:
           - leetcode/binary_search/35.md
           - leetcode/binary_search/704.md
           - leetcode/binary_search/278.md
+          - leetcode/binary_search/153.md
+          - leetcode/binary_search/154.md
       - 字符串:
           - leetcode/string/index.md
           - leetcode/string/242.md
@@ -81,6 +84,12 @@ nav:
       - offer/of05.md
       - offer/of06.md
       - offer/of07.md
+      - offer/of08.md
+      - offer/of09.md
+      - offer/of10-1.md
+      - offer/of10-2.md
+      - offer/of11.md
+      - offer/of12.md
 
 # Customization
 extra_javascript:
@@ -95,8 +104,8 @@ theme:
   name: "material"
   language: "zh"
   palette:
-    primary: teal
-    accent: red
+    primary: "teal"
+    accent: "red"
   feature:
     tabs: true
   font:
