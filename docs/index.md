@@ -2,11 +2,6 @@
 
 菜鸡 qhx 的学习笔记。
 
-主要参考资料：
-
-- [CTF Wiki](https://ctf-wiki.github.io/ctf-wiki/)
-- Google
-
 ## Material color palette 颜色主题
 
 ### Primary colors 主色
