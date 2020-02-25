@@ -27,9 +27,9 @@ nav:
       - 加密与解密:
           - chapter 1: reverse/加密与解密/ch1.md
           - chapter 2: reverse/加密与解密/ch2.md
-      - crakeme:
-          - reverse/crakeme/index.md
-          - reverse/crakeme/cm1.md
+      - crackme:
+          - reverse/crackme/index.md
+          - reverse/crackme/cm1.md
   - C++:
       - cpp/index.md
       - C++ 11/14 快速上手:
@@ -94,7 +94,8 @@ nav:
       - offer/of11.md
       - offer/of12.md
       - offer/of13.md
-      - offer/of14.md
+      - offer/of14-1.md
+      - offer/of14-2.md
 
 # Customization
 extra_javascript:
