@@ -8,3 +8,4 @@
 
 - [一位带哥的 CS-Notes](https://cyc2018.github.io/CS-Notes/#/)
 - [另一位带哥的算法小抄](https://labuladong.gitbook.io/algo/)
+- [再一位带哥的 leetcode 题解](https://leetcode.wang)
