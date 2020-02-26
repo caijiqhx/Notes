@@ -80,6 +80,15 @@ nav:
           - leetcode/string/8.md
       - 树:
           - leetcode/tree/index.md
+      - 回溯算法:
+          - leetcode/backtracking/index.md
+          - leetcode/backtracking/79.md
+          - leetcode/backtracking/46.md
+          - leetcode/backtracking/47.md
+          - leetcode/backtracking/51.md
+      - 排序:
+          - leetcode/sort/index.md
+          - leetcode/sort/215.md
   - 剑指 Offer:
       - offer/index.md
       - offer/of03.md
@@ -96,6 +105,8 @@ nav:
       - offer/of13.md
       - offer/of14-1.md
       - offer/of14-2.md
+      - offer/of15.md
+      - offer/of16.md
 
 # Customization
 extra_javascript:
