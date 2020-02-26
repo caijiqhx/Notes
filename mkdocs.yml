@@ -89,6 +89,11 @@ nav:
       - 排序:
           - leetcode/sort/index.md
           - leetcode/sort/215.md
+      - 动态规划:
+          - leetcode/dynamic_programming/index.md
+          - leetcode/dynamic_programming/53.md
+          - leetcode/dynamic_programming/70.md
+          - leetcode/dynamic_programming/121.md
   - 剑指 Offer:
       - offer/index.md
       - offer/of03.md
@@ -107,6 +112,8 @@ nav:
       - offer/of14-2.md
       - offer/of15.md
       - offer/of16.md
+      - offer/of17.md
+      - offer/of18.md
 
 # Customization
 extra_javascript:
