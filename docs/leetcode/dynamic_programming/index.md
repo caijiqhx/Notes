@@ -62,9 +62,7 @@ dp(n) = \left\{
 \right.
 $$
 
-暴力递归对应的代码：
-
-```c++
+```c++ tab="暴力递归"
 vector<int>& coins;
 int amount;
 
@@ -89,9 +87,7 @@ int dp(int n) {
 }
 ```
 
-使用 dp 数组的迭代方法：
-
-```c++
+```c++ tab="dp 数组"
 int coinChang(vector<int>& coins, int amount) {
     // 取最小值，所以可以把初值设大一点，最多就是 amount + 1
     vector<int> dp(amount + 1, amount + 1);
