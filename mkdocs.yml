@@ -10,160 +10,173 @@ copyright: "Copyright &copy; 2020 caijiqhx"
 
 # Contents
 nav:
-    - Introduction:
-          - index.md
-    - 常用工具:
-          - mkdocs: tools/mkdocs.md
-          - vim: tools/vim.md
-          - 部署工具:
-                - Docker 简介: tools/docker/docker_introduction.md
-                - Dockerfile: tools/docker/dockerfile.md
-          - 调试工具:
-                - IDA: tools/ida.md
-    - 安全技术:
-          - 栈介绍: security/stackoverflow/stack_introduction.md
-    - 逆向分析:
-          - reverse/index.md
-          - 加密与解密:
-                - chapter 1: reverse/加密与解密/ch1.md
-                - chapter 2: reverse/加密与解密/ch2.md
-          - crackme:
-                - reverse/crackme/index.md
-                - reverse/crackme/crackme.md
-    - C++:
-          - cpp/index.md
-          - C++ 11/14 快速上手:
-                - 简介: cpp/c++_11_14/0.md
-                - 语言可用性的强化: cpp/c++_11_14/1.md
-                - 语言运行期的强化: cpp/c++_11_14/2.md
-                - 对标准库的扩充：新增容器: cpp/c++_11_14/3.md
-                - 对标准库的扩充：智能指针和引用计数: cpp/c++_11_14/4.md
-                - 对标准库的扩充：正则表达式: cpp/c++_11_14/5.md
-                - 对标准库的扩充：语言级线程支持: cpp/c++_11_14/6.md
-                - 其他杂项: cpp/c++_11_14/7.md
-                - C++17 简介: cpp/c++_11_14/8.md
-          - STL 学习: cpp/stl_learning.md
-    - leetcode:
-          - leetcode/index.md
-          - 链表:
-                - leetcode/list/index.md
-                - leetcode/list/160.md
-                - leetcode/list/206.md
-                - leetcode/list/21.md
-                - leetcode/list/83.md
-                - leetcode/list/234.md
-                - leetcode/list/141.md
-                - leetcode/list/142.md
-                - leetcode/list/203.md
-                - leetcode/list/237.md
-                - leetcode/list/876.md
-                - leetcode/list/1290.md
-                - leetcode/list/ci0201.md
-                - leetcode/list/19.md
-                - leetcode/list/24.md
-                - leetcode/list/445.md
-                - leetcode/list/725.md
-                - leetcode/list/25.md
-                - leetcode/list/707.md
-                - leetcode/list/328.md
-                - leetcode/list/430.md
-                - leetcode/list/138.md
-                - leetcode/list/61.md
-          - 二分查找:
-                - leetcode/binary_search/index.md
-                - leetcode/binary_search/69.md
-                - leetcode/binary_search/35.md
-                - leetcode/binary_search/704.md
-                - leetcode/binary_search/278.md
-                - leetcode/binary_search/153.md
-                - leetcode/binary_search/154.md
-          - 字符串:
-                - leetcode/string/index.md
-                - leetcode/string/242.md
-                - leetcode/string/409.md
-                - leetcode/string/205.md
-                - leetcode/string/833.md
-                - leetcode/string/8.md
-          - 树:
-                - leetcode/tree/index.md
-                - leetcode/tree/144.md
-                - leetcode/tree/94.md
-                - leetcode/tree/145.md
-                - leetcode/tree/102.md
-                - leetcode/tree/104.md
-          - 回溯算法:
-                - leetcode/backtracking/index.md
-                - leetcode/backtracking/79.md
-                - leetcode/backtracking/46.md
-                - leetcode/backtracking/47.md
-                - leetcode/backtracking/51.md
-          - 排序:
-                - leetcode/sort/index.md
-                - leetcode/sort/215.md
-          - 动态规划:
-                - leetcode/dynamic_programming/index.md
-                - leetcode/dynamic_programming/53.md
-                - leetcode/dynamic_programming/70.md
-                - leetcode/dynamic_programming/121.md
-    - 剑指 Offer:
-          - offer/index.md
-          - offer/of03.md
-          - offer/of04.md
-          - offer/of05.md
-          - offer/of06.md
-          - offer/of07.md
-          - offer/of08.md
-          - offer/of09.md
-          - offer/of10-1.md
-          - offer/of10-2.md
-          - offer/of11.md
-          - offer/of12.md
-          - offer/of13.md
-          - offer/of14-1.md
-          - offer/of14-2.md
-          - offer/of15.md
-          - offer/of16.md
-          - offer/of17.md
-          - offer/of18.md
-          - offer/of21.md
-          - offer/of22.md
-          - offer/of23.md
-          - offer/of24.md
+      - Introduction:
+              - index.md
+      - 常用工具:
+              - mkdocs: tools/mkdocs.md
+              - vim: tools/vim.md
+              - 部署工具:
+                      - Docker 简介: tools/docker/docker_introduction.md
+                      - Dockerfile: tools/docker/dockerfile.md
+              - 调试工具:
+                      - IDA: tools/ida.md
+      - 安全技术:
+              - 栈介绍: security/stackoverflow/stack_introduction.md
+      - 逆向分析:
+              - reverse/index.md
+              - 加密与解密:
+                      - chapter 1: reverse/加密与解密/ch1.md
+                      - chapter 2: reverse/加密与解密/ch2.md
+              - crackme:
+                      - reverse/crackme/index.md
+                      - reverse/crackme/crackme.md
+      - C++:
+              - cpp/index.md
+              - C++ 11/14 快速上手:
+                      - 简介: cpp/c++_11_14/0.md
+                      - 语言可用性的强化: cpp/c++_11_14/1.md
+                      - 语言运行期的强化: cpp/c++_11_14/2.md
+                      - 对标准库的扩充：新增容器: cpp/c++_11_14/3.md
+                      - 对标准库的扩充：智能指针和引用计数: cpp/c++_11_14/4.md
+                      - 对标准库的扩充：正则表达式: cpp/c++_11_14/5.md
+                      - 对标准库的扩充：语言级线程支持: cpp/c++_11_14/6.md
+                      - 其他杂项: cpp/c++_11_14/7.md
+                      - C++17 简介: cpp/c++_11_14/8.md
+              - STL 学习: cpp/stl_learning.md
+      - leetcode:
+              - leetcode/index.md
+              - 链表:
+                      - leetcode/list/index.md
+                      - leetcode/list/160.md
+                      - leetcode/list/206.md
+                      - leetcode/list/21.md
+                      - leetcode/list/83.md
+                      - leetcode/list/234.md
+                      - leetcode/list/141.md
+                      - leetcode/list/142.md
+                      - leetcode/list/203.md
+                      - leetcode/list/237.md
+                      - leetcode/list/876.md
+                      - leetcode/list/1290.md
+                      - leetcode/list/ci0201.md
+                      - leetcode/list/19.md
+                      - leetcode/list/24.md
+                      - leetcode/list/445.md
+                      - leetcode/list/725.md
+                      - leetcode/list/25.md
+                      - leetcode/list/707.md
+                      - leetcode/list/328.md
+                      - leetcode/list/430.md
+                      - leetcode/list/138.md
+                      - leetcode/list/61.md
+              - 二分查找:
+                      - leetcode/binary_search/index.md
+                      - leetcode/binary_search/69.md
+                      - leetcode/binary_search/35.md
+                      - leetcode/binary_search/704.md
+                      - leetcode/binary_search/278.md
+                      - leetcode/binary_search/153.md
+                      - leetcode/binary_search/154.md
+              - 字符串:
+                      - leetcode/string/index.md
+                      - leetcode/string/242.md
+                      - leetcode/string/409.md
+                      - leetcode/string/205.md
+                      - leetcode/string/833.md
+                      - leetcode/string/8.md
+              - 树:
+                      - leetcode/tree/index.md
+                      - leetcode/tree/144.md
+                      - leetcode/tree/94.md
+                      - leetcode/tree/145.md
+                      - leetcode/tree/100.md
+                      - leetcode/tree/101.md
+                      - leetcode/tree/102.md
+                      - leetcode/tree/103.md
+                      - leetcode/tree/104.md
+                      - leetcode/tree/105.md
+                      - leetcode/tree/106.md
+                      - leetcode/tree/107.md
+                      - leetcode/tree/108.md
+                      - leetcode/tree/109.md
+                      - leetcode/tree/110.md
+                      - leetcode/tree/111.md
+                      - leetcode/tree/112.md
+              - 回溯算法:
+                      - leetcode/backtracking/index.md
+                      - leetcode/backtracking/79.md
+                      - leetcode/backtracking/46.md
+                      - leetcode/backtracking/47.md
+                      - leetcode/backtracking/51.md
+              - 排序:
+                      - leetcode/sort/index.md
+                      - leetcode/sort/215.md
+              - 动态规划:
+                      - leetcode/dynamic_programming/index.md
+                      - leetcode/dynamic_programming/53.md
+                      - leetcode/dynamic_programming/70.md
+                      - leetcode/dynamic_programming/121.md
+      - 剑指 Offer:
+              - offer/index.md
+              - offer/of03.md
+              - offer/of04.md
+              - offer/of05.md
+              - offer/of06.md
+              - offer/of07.md
+              - offer/of08.md
+              - offer/of09.md
+              - offer/of10-1.md
+              - offer/of10-2.md
+              - offer/of11.md
+              - offer/of12.md
+              - offer/of13.md
+              - offer/of14-1.md
+              - offer/of14-2.md
+              - offer/of15.md
+              - offer/of16.md
+              - offer/of17.md
+              - offer/of18.md
+              - offer/of21.md
+              - offer/of22.md
+              - offer/of23.md
+              - offer/of24.md
+              - offer/of25.md
+              - offer/of27.md
 
 # Customization
 extra_javascript:
-    - "static/js/extra.js"
-    - "https://cdnjs.loli.net/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"
+      - "static/js/extra.js"
+      - "https://cdnjs.loli.net/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"
 
 extra_css:
-    - "static/css/extra.css"
+      - "static/css/extra.css"
 
 # theme
 theme:
-    name: "material"
-    language: "zh"
-    palette:
-        primary: "teal"
-        accent: "red"
-    feature:
-        tabs: true
-    font:
-        text: "Noto Sans"
-        code: "Source Code Pro"
+      name: "material"
+      language: "zh"
+      palette:
+            primary: "teal"
+            accent: "red"
+      feature:
+            tabs: true
+      font:
+            text: "Noto Sans"
+            code: "Source Code Pro"
 
 markdown_extensions:
-    - footnotes
-    - toc:
-          permalink: "*"
-    - codehilite:
-          linenums: true
-    - pymdownx.arithmatex
-    - pymdownx.superfences
-    - pymdownx.details
-    - pymdownx.inlinehilite
-    - pymdownx.mark
-    - pymdownx.magiclink
-    - pymdownx.smartsymbols
-    - pymdownx.tasklist:
-          custom_checkbox: true
-    - pymdownx.tilde
+      - footnotes
+      - toc:
+              permalink: "*"
+      - codehilite:
+              linenums: true
+      - pymdownx.arithmatex
+      - pymdownx.superfences
+      - pymdownx.details
+      - pymdownx.inlinehilite
+      - pymdownx.mark
+      - pymdownx.magiclink
+      - pymdownx.smartsymbols
+      - pymdownx.tasklist:
+              custom_checkbox: true
+      - pymdownx.tilde
