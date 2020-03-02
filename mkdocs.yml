@@ -43,6 +43,8 @@ nav:
                 - 其他杂项: cpp/c++_11_14/7.md
                 - C++17 简介: cpp/c++_11_14/8.md
           - STL 学习: cpp/stl_learning.md
+          - Socket 编程:
+                - cpp/socket/index.md
     - leetcode:
           - leetcode/index.md
           - 链表:
@@ -80,6 +82,7 @@ nav:
                 - leetcode/stack_or_queue/index.md
                 - leetcode/stack_or_queue/225.md
                 - leetcode/stack_or_queue/622.md
+                - leetcode/stack_or_queue/155.md
           - 树:
                 - leetcode/tree/index.md
                 - leetcode/tree/144.md
@@ -124,6 +127,14 @@ nav:
                 - leetcode/dynamic_programming/53.md
                 - leetcode/dynamic_programming/70.md
                 - leetcode/dynamic_programming/121.md
+                - leetcode/dynamic_programming/392.md
+                - leetcode/dynamic_programming/300.md
+                - leetcode/dynamic_programming/303.md
+                - leetcode/dynamic_programming/746.md
+                - leetcode/dynamic_programming/198.md
+                - leetcode/dynamic_programming/1143.md
+                - leetcode/dynamic_programming/516.md
+                - leetcode/dynamic_programming/1218.md
     - 剑指 Offer:
           - offer/index.md
           - offer/of03.md
@@ -149,9 +160,12 @@ nav:
           - offer/of23.md
           - offer/of24.md
           - offer/of25.md
+          - offer/of26.md
           - offer/of27.md
           - offer/of28.md
           - offer/of29.md
+          - offer/of30.md
+          - offer/of31.md
 
 # Customization
 extra_javascript:
