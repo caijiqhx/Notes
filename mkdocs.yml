@@ -45,6 +45,14 @@ nav:
       - STL 学习: cpp/stl_learning.md
       - Socket 编程:
           - cpp/socket/index.md
+      - 设计模式:
+          - cpp/design_pattern/index.md
+          - cpp/design_pattern/basic.md
+          - 创建型模式:
+              - cpp/design_pattern/simple_factory.md
+              - cpp/design_pattern/factory_method.md
+              - cpp/design_pattern/abstract_factory.md
+              - cpp/design_pattern/builder.md
   - leetcode:
       - leetcode/index.md
       - 链表:
