@@ -91,7 +91,14 @@ nav:
           - leetcode/stack_or_queue/225.md
           - leetcode/stack_or_queue/622.md
           - leetcode/stack_or_queue/155.md
+          - leetcode/stack_or_queue/20.md
           - leetcode/stack_or_queue/200.md
+          - leetcode/stack_or_queue/739.md
+          - leetcode/stack_or_queue/752.md
+          - leetcode/stack_or_queue/279.md
+          - leetcode/stack_or_queue/150.md
+          - leetcode/stack_or_queue/133.md
+          - leetcode/stack_or_queue/494.md
       - 树:
           - leetcode/tree/index.md
           - leetcode/tree/144.md
