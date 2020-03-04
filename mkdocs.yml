@@ -55,6 +55,14 @@ nav:
               - cpp/design_pattern/builder.md
   - leetcode:
       - leetcode/index.md
+      - 数组:
+          - leetcode/array/index.md
+          - leetcode/array/724.md
+          - leetcode/array/747.md
+          - leetcode/array/498.md
+          - leetcode/array/54.md
+          - leetcode/array/118.md
+          - leetcode/array/119.md
       - 链表:
           - leetcode/list/index.md
           - leetcode/list/160.md
@@ -99,6 +107,12 @@ nav:
           - leetcode/stack_or_queue/150.md
           - leetcode/stack_or_queue/133.md
           - leetcode/stack_or_queue/494.md
+          - leetcode/stack_or_queue/994.md
+          - leetcode/stack_or_queue/232.md
+          - leetcode/stack_or_queue/394.md
+          - leetcode/stack_or_queue/733.md
+          - leetcode/stack_or_queue/542.md
+          - leetcode/stack_or_queue/841.md
       - 树:
           - leetcode/tree/index.md
           - leetcode/tree/144.md
