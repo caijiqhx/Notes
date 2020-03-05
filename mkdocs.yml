@@ -63,6 +63,7 @@ nav:
           - leetcode/array/54.md
           - leetcode/array/118.md
           - leetcode/array/119.md
+          - leetcode/array/67.md
       - 链表:
           - leetcode/list/index.md
           - leetcode/list/160.md
@@ -94,6 +95,13 @@ nav:
           - leetcode/string/205.md
           - leetcode/string/833.md
           - leetcode/string/8.md
+          - leetcode/string/14.md
+          - leetcode/string/28.md
+          - leetcode/string/167.md
+          - leetcode/string/541.md
+          - leetcode/string/561.md
+          - leetcode/string/209.md
+          - leetcode/string/151.md
       - 栈和队列:
           - leetcode/stack_or_queue/index.md
           - leetcode/stack_or_queue/225.md
