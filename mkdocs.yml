@@ -146,13 +146,17 @@ nav:
           - leetcode/tree/112.md
           - leetcode/tree/116.md
           - leetcode/tree/117.md
-          - leetcode/tree/235.md
           - leetcode/tree/236.md
           - leetcode/tree/297.md
       - 二叉搜索树:
           - leetcode/binary_search_tree/index.md
           - leetcode/binary_search_tree/98.md
           - leetcode/binary_search_tree/173.md
+          - leetcode/binary_search_tree/700.md
+          - leetcode/binary_search_tree/701.md
+          - leetcode/binary_search_tree/450.md
+          - leetcode/binary_search_tree/235.md
+          - leetcode/binary_search_tree/703.md
       - 二分查找:
           - leetcode/binary_search/index.md
           - leetcode/binary_search/69.md
@@ -187,6 +191,8 @@ nav:
           - leetcode/dynamic_programming/152.md
           - leetcode/dynamic_programming/376.md
           - leetcode/dynamic_programming/subsequense.md
+          - leetcode/dynamic_programming/322.md
+          - leetcode/dynamic_programming/knapspack.md
   - 剑指 Offer:
       - offer/index.md
       - offer/of03.md
@@ -219,6 +225,7 @@ nav:
       - offer/of30.md
       - offer/of31.md
       - offer/of57-2.md
+      - offer/of59-2.md
 
 # Customization
 extra_javascript:
