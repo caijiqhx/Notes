@@ -148,6 +148,7 @@ nav:
           - leetcode/tree/117.md
           - leetcode/tree/236.md
           - leetcode/tree/297.md
+          - leetcode/tree/543.md
       - 二叉搜索树:
           - leetcode/binary_search_tree/index.md
           - leetcode/binary_search_tree/98.md
