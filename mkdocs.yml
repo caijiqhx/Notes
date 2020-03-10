@@ -32,6 +32,8 @@ nav:
           - reverse/crackme/crackme.md
   - C++:
       - cpp/index.md
+      - cpp/casting.md
+      - cpp/rtti.md
       - C++ 11/14 快速上手:
           - 简介: cpp/c++_11_14/0.md
           - 语言可用性的强化: cpp/c++_11_14/1.md
@@ -158,6 +160,7 @@ nav:
           - leetcode/binary_search_tree/450.md
           - leetcode/binary_search_tree/235.md
           - leetcode/binary_search_tree/703.md
+          - leetcode/binary_search_tree/220.md
       - 二分查找:
           - leetcode/binary_search/index.md
           - leetcode/binary_search/69.md
