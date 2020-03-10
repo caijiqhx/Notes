@@ -226,6 +226,59 @@ nav:
       - offer/of31.md
       - offer/of57-2.md
       - offer/of59-2.md
+  - 操作系统:
+      - os/index.md
+      - os_lab:
+          - os/os_lab/index.md
+          - lab1:
+              - os/os_lab/lab1/exer1.md
+              - os/os_lab/lab1/exer2.md
+              - os/os_lab/lab1/exer3.md
+              - os/os_lab/lab1/exer4.md
+              - os/os_lab/lab1/exer5.md
+              - os/os_lab/lab1/exer6.md
+              - os/os_lab/lab1/challenge.md
+              - os/os_lab/lab1/lab1.md
+          - lab2:
+              - os/os_lab/lab2/preview.md
+              - os/os_lab/lab2/exer1.md
+              - os/os_lab/lab2/exer2.md
+              - os/os_lab/lab2/exer3.md
+              - os/os_lab/lab2/challenge.md
+              - os/os_lab/lab2/lab2.md
+          - lab3:
+              - os/os_lab/lab3/preview.md
+              - os/os_lab/lab3/exer1.md
+              - os/os_lab/lab3/exer2.md
+              - os/os_lab/lab3/challenge.md
+              - os/os_lab/lab3/lab3.md
+          - lab4:
+              - os/os_lab/lab4/preview.md
+              - os/os_lab/lab4/exer1.md
+              - os/os_lab/lab4/exer2.md
+              - os/os_lab/lab4/exer3.md
+              - os/os_lab/lab4/lab4.md
+          - lab5:
+              - os/os_lab/lab5/preview.md
+              - os/os_lab/lab5/exer1.md
+              - os/os_lab/lab5/exer2.md
+              - os/os_lab/lab5/exer3.md
+              - os/os_lab/lab5/lab5.md
+          - lab6:
+              - os/os_lab/lab6/preview.md
+              - os/os_lab/lab6/exer1.md
+              - os/os_lab/lab6/exer2.md
+              - os/os_lab/lab6/lab6.md
+          - lab7:
+              - os/os_lab/lab7/preview.md
+              - os/os_lab/lab7/exer1.md
+              - os/os_lab/lab7/exer2.md
+              - os/os_lab/lab7/lab7.md
+          - lab8:
+              - os/os_lab/lab8/preview.md
+              - os/os_lab/lab8/exer1.md
+              - os/os_lab/lab8/exer2.md
+              - os/os_lab/lab8/lab8.md
 
 # Customization
 extra_javascript:
