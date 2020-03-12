@@ -109,6 +109,7 @@ nav:
           - leetcode/string/541.md
           - leetcode/string/151.md
           - leetcode/string/557.md
+          - leetcode/string/1071.md
       - 栈和队列:
           - leetcode/stack_or_queue/index.md
           - leetcode/stack_or_queue/225.md
@@ -197,6 +198,7 @@ nav:
           - leetcode/dynamic_programming/subsequense.md
           - leetcode/dynamic_programming/322.md
           - leetcode/dynamic_programming/knapspack.md
+          - leetcode/dynamic_programming/stuck.md
   - 剑指 Offer:
       - offer/index.md
       - offer/of03.md
@@ -283,7 +285,16 @@ nav:
               - os/os_lab/lab8/exer1.md
               - os/os_lab/lab8/exer2.md
               - os/os_lab/lab8/lab8.md
-
+  - 毕业设计:
+      - thesis/index.md
+      - PE 文件结构:
+          - thesis/pe/index.md
+          - thesis/pe/pe_format.md
+          - thesis/pe/import_table.md
+          - thesis/pe/export_table.md
+          - thesis/pe/reloc_table.md
+      - 论文:
+          - thesis/paper/index.md
 # Customization
 extra_javascript:
   - "static/js/extra.js"
