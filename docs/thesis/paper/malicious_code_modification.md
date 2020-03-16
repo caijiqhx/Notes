@@ -1,4 +1,4 @@
-# Windows PE 恶意代码自动化免杀论文阅读
+# Windows PE 恶意代码自动化免杀
 
 > [Windows PE 恶意代码自动化免杀方法的研究与实现-电子科技大学-张晗](https://kns.cnki.net/KCMS/detail/detail.aspx?dbcode=CMFD&dbname=CMFD201802&filename=1018707851.nh&v=MTUzNTh6SlZGMjZGclM0R2RuSnJwRWJQSVI4ZVgxTHV4WVM3RGgxVDNxVHJXTTFGckNVUjdxZlpPZHNGeXprVjc=)
 

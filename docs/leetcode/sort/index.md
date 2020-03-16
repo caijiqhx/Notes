@@ -17,6 +17,8 @@
 | 三路快速排序 | $O(N\log(N))$  | $O(N^2)$       | $O(\log(N))$     | 不稳定 |
 | 希尔排序     | $O(N^{1.3})$   |                | $O(1)$           | 不稳定 |
 | 桶排序       | $O(N)$         | $O(N)$         | $O(\max - \min)$ | 稳定   |
+| 堆排序       | $O(N\log(N))$  | $O(N\log(N))$  | $O(1)$           | 不稳定 |
+| 归并排序     | $O(N\log(N))$  | $O(N\log(N))$  | $O(N)$           | 稳定   |
 
 ```c++ tab="冒泡排序"
 void bubbleSort(vector<int>& nums) {
@@ -150,75 +152,63 @@ vector<int> bucketSort(vector<int>& nums) {
 
 ```c++ tab="堆排序"
 // 堆是完全二叉树，所以方便用数组表示
-
+// 建堆的时间复杂度为 O(n)
+void adjust(vector<int> &nums, int rootPos, int size) {
+    while(rootPos + 1 < size - rootPos) {
+        int left = 2 * rootPos + 1;
+        int right = 2 * rootPos + 2;
+        int maxIndex = (right < size && nums[right] > nums[left] ? right : left);
+        if(nums[maxIndex] > nums[rootPos]) {
+            swap(nums[maxIndex], nums[rootPos]);
+        }else {
+            // 满足条件则不需要再调整
+            break;
+        }
+        // 当前节点下沉
+        rootPos = maxIndex;
+    }
+}
+void headSort(vector<int> &nums) {
+    int n = nums.size();
+    for(int i = n / 2; i >= 0; i--) {
+        adjust(nums, i, n);
+    }
+    // 出堆操作，把最大值放到最后，size--
+    for(int i = n - 1; i > 0; i--) {
+        swap(nums[0], nums[i]);
+        adjust(nums, 0, i);
+    }
+}
 ```
 
-```c++
-class Solution {
-public:
-    /**
-     * <归并排序>
-     * 时间复杂度: 最好O(n*log(n)) 最坏O(n*log(n)) 平均O(n*log(n)) 稳定
-     * 空间复杂度: O(n)
-     */
-    vector<int> mergeSort(vector<int> &nums, int l, int r) {
-        if (l > r) return {}; // 左指针大于右指针,直接返回空
-        if (l == r) return {nums[l]}; // 归并到单个数直接返回,不做排序
-        vector<int> res; // 临时数组,返回排序好的部分数组
-        int m = l + (r - l) / 2; // 二分
-        auto ln = mergeSort(nums, l, m); // 左侧归并
-        auto rn = mergeSort(nums, m + 1, r); // 右侧归并
-        int i = 0;
-        int j = 0;
-        while (i < ln.size() && j < rn.size()) { // 只要有一个数组被遍历完,则跳出循环
-            if (ln[i] <= rn[j]) {
-                res.push_back(ln[i++]);
-            } else {
-                res.push_back(rn[j++]);
-            }
-        }
-        while (i < ln.size()) res.push_back(ln[i++]); // 若右数组被遍历完,则说明左数组剩下的所有数都大于右数组,直接放在临时数组最后
-        while (j < rn.size()) res.push_back(rn[j++]); // 同理
-        return res;
+```c++ tab="归并排序"
+// 先把左右排序 然后合并
+vector<int> mergeSort(vector<int>& nums, int l, int r) {
+    if(l > r) {
+        return {};
     }
-
-    /**
-     * <堆排序>
-     * 时间复杂度: 最好O(n*log(n)) 最坏O(n*log(n)) 平均O(n*log(n)) 不稳定
-     * 空间复杂度: O(1)
-     */
-    void heapSort(vector<int> &nums) {
-        // 构建大顶堆,从第一个非叶子节点开始,向左依次进行下沉操作
-        for (int i = nums.size() / 2; i >= 0; --i) {
-            siftdown(nums, i, nums.size());
-        }
-        // 进行出堆操作,相当于pop()
-        for (int i = nums.size() - 1; i > 0; --i) {
-            swap(nums[0], nums[i]); // 出堆(将最大值放置数组尾,堆size - 1)
-            siftdown(nums, 0, i); // 将根执行下沉操作
+    if(l == r) {
+        return {nums[l]};
+    }
+    vector<int> res(r - l + 1);
+    int mid = l + (r - l) / 2;
+    auto left = mergeSort(nums, l, mid);
+    auto right = mergeSort(nums, mid + 1, r);
+    int i = 0, j = 0;
+    int cnt = 0;
+    while(i < (mid - l + 1) && j < (r - mid)) {
+        if(left[i] < right[j]) {
+            res[cnt++] = left[i++];
+        }else {
+            res[cnt++] = right[j++];
         }
     }
-
-    void siftdown(vector<int> &nums, int root, int size) {
-        /**
-         * 构造大顶堆的下浮操作
-         */
-        while (2 * root + 1 < size) { // 当p存在孩子时
-            int c1 = 2 * root + 1; // p节点的左孩子
-            int c2 = 2 * root + 2; // p节点的右孩子
-            int c = (c2 < size && nums[c2] > nums[c1]) ? c2 : c1; // c是值最大的孩子节点
-            if (nums[c] > nums[root]) { // 若孩子节点大于父亲节点,交换位置
-                swap(nums[c], nums[root]);
-            } else {
-                break; // 该点满足堆条件,又因为下方已经成堆,所以不必向下建堆
-            }
-            /**
-             * 若此时节点不是最大值,则有可能也小于
-             * <以该节点为根的下一个子堆>的孩子节点
-             * 所以需要将该节点也进行一次下沉操作
-             */
-            root = c;
-        }
+    while(i < mid - l + 1) {
+        res[cnt++] = left[i++];
     }
-
+    while(j < r - mid) {
+        res[cnt++] = right[j++];
+    }
+    return res;
+}
 ```

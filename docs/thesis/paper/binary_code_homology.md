@@ -1,4 +1,4 @@
-# 二进制代码同源性论文阅读
+# 二进制代码同源性
 
 > [基于二进制代码同源性的恶意程序检测技术的研究与实现-北京邮电大学-黎恒](https://kns.cnki.net/KCMS/detail/detail.aspx?dbcode=CMFD&dbname=CMFD201902&filename=1019114091.nh&v=Mjk0MDM2RjdLNUd0SEZycEViUElSOGVYMUx1eFlTN0RoMVQzcVRyV00xRnJDVVI3cWZaT2R0RkNua1ZMek9WRjI=)
 
