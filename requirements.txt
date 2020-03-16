@@ -2,4 +2,4 @@ Markdown
 mkdocs
 mkdocs-material
 pymdown-extensions
-git-revision-date-localized
+mkdocs-git-revision-date-localized-plugin
