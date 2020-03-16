@@ -10,332 +10,347 @@ copyright: "Copyright &copy; 2020 caijiqhx"
 
 # Contents
 nav:
-  - Introduction:
-      - index.md
-  - 常用工具:
-      - mkdocs: tools/mkdocs.md
-      - vim: tools/vim.md
-      - 部署工具:
-          - Docker 简介: tools/docker/docker_introduction.md
-          - Dockerfile: tools/docker/dockerfile.md
-      - 调试工具:
-          - IDA: tools/ida.md
-  - 安全技术:
-      - 栈介绍: security/stackoverflow/stack_introduction.md
-  - 逆向分析:
-      - reverse/index.md
-      - 加密与解密:
-          - chapter 1: reverse/加密与解密/ch1.md
-          - chapter 2: reverse/加密与解密/ch2.md
-      - crackme:
-          - reverse/crackme/index.md
-          - reverse/crackme/crackme.md
-  - C++:
-      - cpp/index.md
-      - cpp/memo.md
-      - cpp/casting.md
-      - cpp/rtti.md
-      - C++ 11/14 快速上手:
-          - 简介: cpp/c++_11_14/0.md
-          - 语言可用性的强化: cpp/c++_11_14/1.md
-          - 语言运行期的强化: cpp/c++_11_14/2.md
-          - 对标准库的扩充：新增容器: cpp/c++_11_14/3.md
-          - 对标准库的扩充：智能指针和引用计数: cpp/c++_11_14/4.md
-          - 对标准库的扩充：正则表达式: cpp/c++_11_14/5.md
-          - 对标准库的扩充：语言级线程支持: cpp/c++_11_14/6.md
-          - 其他杂项: cpp/c++_11_14/7.md
-          - C++17 简介: cpp/c++_11_14/8.md
-      - STL 学习: cpp/stl_learning.md
-      - Socket 编程:
-          - cpp/socket/index.md
-      - 设计模式:
-          - cpp/design_pattern/index.md
-          - cpp/design_pattern/basic.md
-          - 创建型模式:
-              - cpp/design_pattern/simple_factory.md
-              - cpp/design_pattern/factory_method.md
-              - cpp/design_pattern/abstract_factory.md
-              - cpp/design_pattern/builder.md
-  - leetcode:
-      - leetcode/index.md
-      - 数组:
-          - leetcode/array/index.md
-          - leetcode/array/724.md
-          - leetcode/array/747.md
-          - leetcode/array/498.md
-          - leetcode/array/54.md
-          - leetcode/array/118.md
-          - leetcode/array/119.md
-          - leetcode/array/67.md
-          - leetcode/array/209.md
-          - leetcode/array/561.md
-          - leetcode/array/167.md
-          - leetcode/array/26.md
-          - leetcode/array/80.md
-          - leetcode/array/189.md
-          - leetcode/array/283.md
-      - 链表:
-          - leetcode/list/index.md
-          - leetcode/list/160.md
-          - leetcode/list/206.md
-          - leetcode/list/21.md
-          - leetcode/list/83.md
-          - leetcode/list/234.md
-          - leetcode/list/141.md
-          - leetcode/list/142.md
-          - leetcode/list/203.md
-          - leetcode/list/237.md
-          - leetcode/list/876.md
-          - leetcode/list/1290.md
-          - leetcode/list/ci0201.md
-          - leetcode/list/19.md
-          - leetcode/list/24.md
-          - leetcode/list/445.md
-          - leetcode/list/725.md
-          - leetcode/list/25.md
-          - leetcode/list/707.md
-          - leetcode/list/328.md
-          - leetcode/list/430.md
-          - leetcode/list/138.md
-          - leetcode/list/61.md
-      - 字符串:
-          - leetcode/string/index.md
-          - leetcode/string/242.md
-          - leetcode/string/409.md
-          - leetcode/string/205.md
-          - leetcode/string/833.md
-          - leetcode/string/8.md
-          - leetcode/string/14.md
-          - leetcode/string/28.md
-          - leetcode/string/541.md
-          - leetcode/string/151.md
-          - leetcode/string/557.md
-          - leetcode/string/1071.md
-      - 栈和队列:
-          - leetcode/stack_or_queue/index.md
-          - leetcode/stack_or_queue/225.md
-          - leetcode/stack_or_queue/622.md
-          - leetcode/stack_or_queue/155.md
-          - leetcode/stack_or_queue/20.md
-          - leetcode/stack_or_queue/200.md
-          - leetcode/stack_or_queue/739.md
-          - leetcode/stack_or_queue/752.md
-          - leetcode/stack_or_queue/279.md
-          - leetcode/stack_or_queue/150.md
-          - leetcode/stack_or_queue/133.md
-          - leetcode/stack_or_queue/494.md
-          - leetcode/stack_or_queue/994.md
-          - leetcode/stack_or_queue/232.md
-          - leetcode/stack_or_queue/394.md
-          - leetcode/stack_or_queue/733.md
-          - leetcode/stack_or_queue/542.md
-          - leetcode/stack_or_queue/841.md
-      - 树:
-          - leetcode/tree/index.md
-          - leetcode/tree/144.md
-          - leetcode/tree/94.md
-          - leetcode/tree/145.md
-          - leetcode/tree/100.md
-          - leetcode/tree/101.md
-          - leetcode/tree/102.md
-          - leetcode/tree/103.md
-          - leetcode/tree/104.md
-          - leetcode/tree/105.md
-          - leetcode/tree/106.md
-          - leetcode/tree/107.md
-          - leetcode/tree/108.md
-          - leetcode/tree/109.md
-          - leetcode/tree/110.md
-          - leetcode/tree/111.md
-          - leetcode/tree/112.md
-          - leetcode/tree/116.md
-          - leetcode/tree/117.md
-          - leetcode/tree/236.md
-          - leetcode/tree/297.md
-          - leetcode/tree/543.md
-      - 二叉搜索树:
-          - leetcode/binary_search_tree/index.md
-          - leetcode/binary_search_tree/98.md
-          - leetcode/binary_search_tree/173.md
-          - leetcode/binary_search_tree/700.md
-          - leetcode/binary_search_tree/701.md
-          - leetcode/binary_search_tree/450.md
-          - leetcode/binary_search_tree/235.md
-          - leetcode/binary_search_tree/703.md
-          - leetcode/binary_search_tree/220.md
-      - 二分查找:
-          - leetcode/binary_search/index.md
-          - leetcode/binary_search/69.md
-          - leetcode/binary_search/35.md
-          - leetcode/binary_search/704.md
-          - leetcode/binary_search/278.md
-          - leetcode/binary_search/153.md
-          - leetcode/binary_search/154.md
-      - 回溯算法:
-          - leetcode/backtracking/index.md
-          - leetcode/backtracking/79.md
-          - leetcode/backtracking/46.md
-          - leetcode/backtracking/47.md
-          - leetcode/backtracking/51.md
-          - leetcode/backtracking/301.md
-      - 排序:
-          - leetcode/sort/index.md
-          - leetcode/sort/215.md
-      - 动态规划:
-          - leetcode/dynamic_programming/index.md
-          - leetcode/dynamic_programming/53.md
-          - leetcode/dynamic_programming/70.md
-          - leetcode/dynamic_programming/121.md
-          - leetcode/dynamic_programming/392.md
-          - leetcode/dynamic_programming/300.md
-          - leetcode/dynamic_programming/303.md
-          - leetcode/dynamic_programming/746.md
-          - leetcode/dynamic_programming/198.md
-          - leetcode/dynamic_programming/1143.md
-          - leetcode/dynamic_programming/516.md
-          - leetcode/dynamic_programming/1218.md
-          - leetcode/dynamic_programming/673.md
-          - leetcode/dynamic_programming/152.md
-          - leetcode/dynamic_programming/376.md
-          - leetcode/dynamic_programming/subsequense.md
-          - leetcode/dynamic_programming/322.md
-          - leetcode/dynamic_programming/knapspack.md
-          - leetcode/dynamic_programming/stuck.md
-          - leetcode/dynamic_programming/1035.md
-  - 剑指 Offer:
-      - offer/index.md
-      - offer/of01.md
-      - offer/of03.md
-      - offer/of04.md
-      - offer/of05.md
-      - offer/of06.md
-      - offer/of07.md
-      - offer/of08.md
-      - offer/of09.md
-      - offer/of10-1.md
-      - offer/of10-2.md
-      - offer/of11.md
-      - offer/of12.md
-      - offer/of13.md
-      - offer/of14-1.md
-      - offer/of14-2.md
-      - offer/of15.md
-      - offer/of16.md
-      - offer/of17.md
-      - offer/of18.md
-      - offer/of21.md
-      - offer/of22.md
-      - offer/of23.md
-      - offer/of24.md
-      - offer/of25.md
-      - offer/of26.md
-      - offer/of27.md
-      - offer/of28.md
-      - offer/of29.md
-      - offer/of30.md
-      - offer/of31.md
-      - offer/of57-2.md
-      - offer/of59-2.md
-  - 操作系统:
-      - os/index.md
-      - os_lab:
-          - os/os_lab/index.md
-          - lab1:
-              - os/os_lab/lab1/exer1.md
-              - os/os_lab/lab1/exer2.md
-              - os/os_lab/lab1/exer3.md
-              - os/os_lab/lab1/exer4.md
-              - os/os_lab/lab1/exer5.md
-              - os/os_lab/lab1/exer6.md
-              - os/os_lab/lab1/challenge.md
-              - os/os_lab/lab1/lab1.md
-          - lab2:
-              - os/os_lab/lab2/preview.md
-              - os/os_lab/lab2/exer1.md
-              - os/os_lab/lab2/exer2.md
-              - os/os_lab/lab2/exer3.md
-              - os/os_lab/lab2/challenge.md
-              - os/os_lab/lab2/lab2.md
-          - lab3:
-              - os/os_lab/lab3/preview.md
-              - os/os_lab/lab3/exer1.md
-              - os/os_lab/lab3/exer2.md
-              - os/os_lab/lab3/challenge.md
-              - os/os_lab/lab3/lab3.md
-          - lab4:
-              - os/os_lab/lab4/preview.md
-              - os/os_lab/lab4/exer1.md
-              - os/os_lab/lab4/exer2.md
-              - os/os_lab/lab4/exer3.md
-              - os/os_lab/lab4/lab4.md
-          - lab5:
-              - os/os_lab/lab5/preview.md
-              - os/os_lab/lab5/exer1.md
-              - os/os_lab/lab5/exer2.md
-              - os/os_lab/lab5/exer3.md
-              - os/os_lab/lab5/lab5.md
-          - lab6:
-              - os/os_lab/lab6/preview.md
-              - os/os_lab/lab6/exer1.md
-              - os/os_lab/lab6/exer2.md
-              - os/os_lab/lab6/lab6.md
-          - lab7:
-              - os/os_lab/lab7/preview.md
-              - os/os_lab/lab7/exer1.md
-              - os/os_lab/lab7/exer2.md
-              - os/os_lab/lab7/lab7.md
-          - lab8:
-              - os/os_lab/lab8/preview.md
-              - os/os_lab/lab8/exer1.md
-              - os/os_lab/lab8/exer2.md
-              - os/os_lab/lab8/lab8.md
-  - 毕业设计:
-      - thesis/index.md
-      - PE 文件结构:
-          - thesis/pe/index.md
-          - thesis/pe/pe_format.md
-          - thesis/pe/import_table.md
-          - thesis/pe/export_table.md
-          - thesis/pe/reloc_table.md
-      - 论文:
-          - thesis/paper/index.md
-          - thesis/paper/binary_code_homology.md
-          - thesis/paper/malicious_code_modification.md
-          - thesis/paper/who_wrote_this_code.md
+    - Introduction:
+          - index.md
+    - 常用工具:
+          - mkdocs: tools/mkdocs.md
+          - vim: tools/vim.md
+          - 部署工具:
+                - Docker 简介: tools/docker/docker_introduction.md
+                - Dockerfile: tools/docker/dockerfile.md
+          - 调试工具:
+                - IDA: tools/ida.md
+    - 安全技术:
+          - 栈介绍: security/stackoverflow/stack_introduction.md
+    - 逆向分析:
+          - reverse/index.md
+          - 加密与解密:
+                - chapter 1: reverse/加密与解密/ch1.md
+                - chapter 2: reverse/加密与解密/ch2.md
+          - crackme:
+                - reverse/crackme/index.md
+                - reverse/crackme/crackme.md
+    - C++:
+          - cpp/index.md
+          - cpp/memo.md
+          - cpp/casting.md
+          - cpp/rtti.md
+          - C++ 11/14 快速上手:
+                - 简介: cpp/c++_11_14/0.md
+                - 语言可用性的强化: cpp/c++_11_14/1.md
+                - 语言运行期的强化: cpp/c++_11_14/2.md
+                - 对标准库的扩充：新增容器: cpp/c++_11_14/3.md
+                - 对标准库的扩充：智能指针和引用计数: cpp/c++_11_14/4.md
+                - 对标准库的扩充：正则表达式: cpp/c++_11_14/5.md
+                - 对标准库的扩充：语言级线程支持: cpp/c++_11_14/6.md
+                - 其他杂项: cpp/c++_11_14/7.md
+                - C++17 简介: cpp/c++_11_14/8.md
+          - STL 学习: cpp/stl_learning.md
+          - Socket 编程:
+                - cpp/socket/index.md
+          - 设计模式:
+                - cpp/design_pattern/index.md
+                - cpp/design_pattern/basic.md
+                - 创建型模式:
+                      - cpp/design_pattern/simple_factory.md
+                      - cpp/design_pattern/factory_method.md
+                      - cpp/design_pattern/abstract_factory.md
+                      - cpp/design_pattern/builder.md
+    - leetcode:
+          - leetcode/index.md
+          - 周赛:
+                - leetcode/contest/index.md
+                - leetcode/contest/week-180.md
+          - 数组:
+                - leetcode/array/index.md
+                - leetcode/array/724.md
+                - leetcode/array/747.md
+                - leetcode/array/498.md
+                - leetcode/array/54.md
+                - leetcode/array/118.md
+                - leetcode/array/119.md
+                - leetcode/array/67.md
+                - leetcode/array/209.md
+                - leetcode/array/561.md
+                - leetcode/array/167.md
+                - leetcode/array/26.md
+                - leetcode/array/80.md
+                - leetcode/array/189.md
+                - leetcode/array/283.md
+                - leetcode/array/5356.md
+          - 链表:
+                - leetcode/list/index.md
+                - leetcode/list/160.md
+                - leetcode/list/206.md
+                - leetcode/list/21.md
+                - leetcode/list/83.md
+                - leetcode/list/234.md
+                - leetcode/list/141.md
+                - leetcode/list/142.md
+                - leetcode/list/203.md
+                - leetcode/list/237.md
+                - leetcode/list/876.md
+                - leetcode/list/1290.md
+                - leetcode/list/ci0201.md
+                - leetcode/list/19.md
+                - leetcode/list/24.md
+                - leetcode/list/445.md
+                - leetcode/list/725.md
+                - leetcode/list/25.md
+                - leetcode/list/707.md
+                - leetcode/list/328.md
+                - leetcode/list/430.md
+                - leetcode/list/138.md
+                - leetcode/list/61.md
+          - 字符串:
+                - leetcode/string/index.md
+                - leetcode/string/242.md
+                - leetcode/string/409.md
+                - leetcode/string/205.md
+                - leetcode/string/833.md
+                - leetcode/string/8.md
+                - leetcode/string/14.md
+                - leetcode/string/28.md
+                - leetcode/string/541.md
+                - leetcode/string/151.md
+                - leetcode/string/557.md
+                - leetcode/string/1071.md
+          - 栈和队列:
+                - leetcode/stack_or_queue/index.md
+                - leetcode/stack_or_queue/225.md
+                - leetcode/stack_or_queue/622.md
+                - leetcode/stack_or_queue/232.md
+                - leetcode/stack_or_queue/155.md
+                - leetcode/stack_or_queue/20.md
+                - leetcode/stack_or_queue/200.md
+                - leetcode/stack_or_queue/739.md
+                - leetcode/stack_or_queue/752.md
+                - leetcode/stack_or_queue/279.md
+                - leetcode/stack_or_queue/150.md
+                - leetcode/stack_or_queue/133.md
+                - leetcode/stack_or_queue/494.md
+                - leetcode/stack_or_queue/994.md
+                - leetcode/stack_or_queue/394.md
+                - leetcode/stack_or_queue/733.md
+                - leetcode/stack_or_queue/542.md
+                - leetcode/stack_or_queue/841.md
+                - leetcode/stack_or_queue/695.md
+                - leetcode/stack_or_queue/5357.md
+          - 树:
+                - leetcode/tree/index.md
+                - leetcode/tree/144.md
+                - leetcode/tree/94.md
+                - leetcode/tree/145.md
+                - leetcode/tree/100.md
+                - leetcode/tree/101.md
+                - leetcode/tree/102.md
+                - leetcode/tree/103.md
+                - leetcode/tree/104.md
+                - leetcode/tree/105.md
+                - leetcode/tree/106.md
+                - leetcode/tree/107.md
+                - leetcode/tree/108.md
+                - leetcode/tree/109.md
+                - leetcode/tree/110.md
+                - leetcode/tree/111.md
+                - leetcode/tree/112.md
+                - leetcode/tree/116.md
+                - leetcode/tree/117.md
+                - leetcode/tree/236.md
+                - leetcode/tree/297.md
+                - leetcode/tree/543.md
+          - 二叉搜索树:
+                - leetcode/binary_search_tree/index.md
+                - leetcode/binary_search_tree/98.md
+                - leetcode/binary_search_tree/173.md
+                - leetcode/binary_search_tree/700.md
+                - leetcode/binary_search_tree/701.md
+                - leetcode/binary_search_tree/450.md
+                - leetcode/binary_search_tree/235.md
+                - leetcode/binary_search_tree/703.md
+                - leetcode/binary_search_tree/220.md
+                - leetcode/binary_search_tree/5179.md
+          - 二分查找:
+                - leetcode/binary_search/index.md
+                - leetcode/binary_search/69.md
+                - leetcode/binary_search/35.md
+                - leetcode/binary_search/704.md
+                - leetcode/binary_search/278.md
+                - leetcode/binary_search/153.md
+                - leetcode/binary_search/154.md
+          - 回溯算法:
+                - leetcode/backtracking/index.md
+                - leetcode/backtracking/79.md
+                - leetcode/backtracking/46.md
+                - leetcode/backtracking/47.md
+                - leetcode/backtracking/51.md
+                - leetcode/backtracking/301.md
+          - 排序:
+                - leetcode/sort/index.md
+                - leetcode/sort/215.md
+                - leetcode/sort/5359.md
+          - 动态规划:
+                - leetcode/dynamic_programming/index.md
+                - leetcode/dynamic_programming/53.md
+                - leetcode/dynamic_programming/70.md
+                - leetcode/dynamic_programming/121.md
+                - leetcode/dynamic_programming/392.md
+                - leetcode/dynamic_programming/300.md
+                - leetcode/dynamic_programming/303.md
+                - leetcode/dynamic_programming/746.md
+                - leetcode/dynamic_programming/198.md
+                - leetcode/dynamic_programming/1143.md
+                - leetcode/dynamic_programming/516.md
+                - leetcode/dynamic_programming/1218.md
+                - leetcode/dynamic_programming/673.md
+                - leetcode/dynamic_programming/152.md
+                - leetcode/dynamic_programming/376.md
+                - leetcode/dynamic_programming/subsequense.md
+                - leetcode/dynamic_programming/322.md
+                - leetcode/dynamic_programming/knapspack.md
+                - leetcode/dynamic_programming/stuck.md
+                - leetcode/dynamic_programming/1035.md
+    - 剑指 Offer:
+          - offer/index.md
+          - offer/of01.md
+          - offer/of03.md
+          - offer/of04.md
+          - offer/of05.md
+          - offer/of06.md
+          - offer/of07.md
+          - offer/of08.md
+          - offer/of09.md
+          - offer/of10-1.md
+          - offer/of10-2.md
+          - offer/of11.md
+          - offer/of12.md
+          - offer/of13.md
+          - offer/of14-1.md
+          - offer/of14-2.md
+          - offer/of15.md
+          - offer/of16.md
+          - offer/of17.md
+          - offer/of18.md
+          - offer/of21.md
+          - offer/of22.md
+          - offer/of23.md
+          - offer/of24.md
+          - offer/of25.md
+          - offer/of26.md
+          - offer/of27.md
+          - offer/of28.md
+          - offer/of29.md
+          - offer/of30.md
+          - offer/of31.md
+          - offer/of57-2.md
+          - offer/of59-2.md
+    - 操作系统:
+          - os/index.md
+          - os_lab:
+                - os/os_lab/index.md
+                - lab1:
+                      - os/os_lab/lab1/exer1.md
+                      - os/os_lab/lab1/exer2.md
+                      - os/os_lab/lab1/exer3.md
+                      - os/os_lab/lab1/exer4.md
+                      - os/os_lab/lab1/exer5.md
+                      - os/os_lab/lab1/exer6.md
+                      - os/os_lab/lab1/challenge.md
+                      - os/os_lab/lab1/lab1.md
+                - lab2:
+                      - os/os_lab/lab2/preview.md
+                      - os/os_lab/lab2/exer1.md
+                      - os/os_lab/lab2/exer2.md
+                      - os/os_lab/lab2/exer3.md
+                      - os/os_lab/lab2/challenge.md
+                      - os/os_lab/lab2/lab2.md
+                - lab3:
+                      - os/os_lab/lab3/preview.md
+                      - os/os_lab/lab3/exer1.md
+                      - os/os_lab/lab3/exer2.md
+                      - os/os_lab/lab3/challenge.md
+                      - os/os_lab/lab3/lab3.md
+                - lab4:
+                      - os/os_lab/lab4/preview.md
+                      - os/os_lab/lab4/exer1.md
+                      - os/os_lab/lab4/exer2.md
+                      - os/os_lab/lab4/exer3.md
+                      - os/os_lab/lab4/lab4.md
+                - lab5:
+                      - os/os_lab/lab5/preview.md
+                      - os/os_lab/lab5/exer1.md
+                      - os/os_lab/lab5/exer2.md
+                      - os/os_lab/lab5/exer3.md
+                      - os/os_lab/lab5/lab5.md
+                - lab6:
+                      - os/os_lab/lab6/preview.md
+                      - os/os_lab/lab6/exer1.md
+                      - os/os_lab/lab6/exer2.md
+                      - os/os_lab/lab6/lab6.md
+                - lab7:
+                      - os/os_lab/lab7/preview.md
+                      - os/os_lab/lab7/exer1.md
+                      - os/os_lab/lab7/exer2.md
+                      - os/os_lab/lab7/lab7.md
+                - lab8:
+                      - os/os_lab/lab8/preview.md
+                      - os/os_lab/lab8/exer1.md
+                      - os/os_lab/lab8/exer2.md
+                      - os/os_lab/lab8/lab8.md
+    - 毕业设计:
+          - thesis/index.md
+          - PE 文件结构:
+                - thesis/pe/index.md
+                - thesis/pe/pe_format.md
+                - thesis/pe/import_table.md
+                - thesis/pe/export_table.md
+                - thesis/pe/reloc_table.md
+          - 论文:
+                - thesis/paper/index.md
+                - thesis/paper/binary_code_homology.md
+                - thesis/paper/malicious_code_modification.md
+                - thesis/paper/who_wrote_this_code.md
+                - thesis/paper/de-anonymizing_from_binary.md
+                - thesis/paper/adversarial_binaries.md
+                - thesis/paper/binary_code_obfuscation.md
 # Customization
 extra_javascript:
-  - "static/js/extra.js"
-  - "https://cdnjs.loli.net/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"
+    - "static/js/extra.js"
+    - "https://cdnjs.loli.net/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"
 
 extra_css:
-  - "static/css/extra.css"
+    - "static/css/extra.css"
 
 # theme
 theme:
-  name: "material"
-  language: "zh"
-  palette:
-    primary: "teal"
-    accent: "red"
-  feature:
-    tabs: true
-  font:
-    text: "Noto Sans"
-    code: "Source Code Pro"
+    name: "material"
+    language: "zh"
+    palette:
+        primary: "teal"
+        accent: "red"
+    feature:
+        tabs: true
+    font:
+        text: "Noto Sans"
+        code: "Source Code Pro"
 
 markdown_extensions:
-  - footnotes
-  - toc:
-      permalink: "*"
-  - codehilite:
-      linenums: true
-  - pymdownx.arithmatex
-  - pymdownx.superfences
-  - pymdownx.details
-  - pymdownx.inlinehilite
-  - pymdownx.mark
-  - pymdownx.magiclink
-  - pymdownx.smartsymbols
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.tilde
+    - footnotes
+    - toc:
+          permalink: "*"
+    - codehilite:
+          linenums: true
+    - pymdownx.arithmatex
+    - pymdownx.superfences
+    - pymdownx.details
+    - pymdownx.inlinehilite
+    - pymdownx.mark
+    - pymdownx.magiclink
+    - pymdownx.smartsymbols
+    - pymdownx.tasklist:
+          custom_checkbox: true
+    - pymdownx.tilde
+
+plugins:
+    - search
+    - git-revision-date-localized
