@@ -63,20 +63,21 @@ nav:
           - leetcode/contest/week-180.md
       - 数组:
           - leetcode/array/index.md
-          - leetcode/array/724.md
-          - leetcode/array/747.md
-          - leetcode/array/498.md
+          - leetcode/array/26.md
           - leetcode/array/54.md
+          - leetcode/array/59.md
+          - leetcode/array/67.md
+          - leetcode/array/80.md
           - leetcode/array/118.md
           - leetcode/array/119.md
-          - leetcode/array/67.md
-          - leetcode/array/209.md
-          - leetcode/array/561.md
           - leetcode/array/167.md
-          - leetcode/array/26.md
-          - leetcode/array/80.md
+          - leetcode/array/209.md
           - leetcode/array/189.md
           - leetcode/array/283.md
+          - leetcode/array/498.md
+          - leetcode/array/561.md
+          - leetcode/array/724.md
+          - leetcode/array/747.md
           - leetcode/array/5356.md
       - 链表:
           - leetcode/list/index.md
@@ -102,6 +103,7 @@ nav:
           - leetcode/list/430.md
           - leetcode/list/138.md
           - leetcode/list/61.md
+          - leetcode/list/82.md
       - 字符串:
           - leetcode/string/index.md
           - leetcode/string/242.md

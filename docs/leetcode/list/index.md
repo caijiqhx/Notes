@@ -5,3 +5,6 @@
 做题可以先把图画出来。
 
 - [leetcode 探索的链表部分](https://leetcode-cn.com/explore/learn/card/linked-list/)
+
+| Problems | Description |
+| -------- | ----------- |
