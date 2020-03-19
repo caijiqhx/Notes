@@ -56,6 +56,12 @@ nav:
               - cpp/design_pattern/factory_method.md
               - cpp/design_pattern/abstract_factory.md
               - cpp/design_pattern/builder.md
+  - javascript:
+      - js/index.md
+      - js/quick_start.md
+      - js/func.md
+      - js/basic.md
+      - js/object.md
   - leetcode:
       - leetcode/index.md
       - 周赛:
