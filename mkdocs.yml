@@ -35,6 +35,7 @@ nav:
       - cpp/memo.md
       - cpp/casting.md
       - cpp/rtti.md
+      - cpp/unordered_set.md
       - C++ 11/14 快速上手:
           - 简介: cpp/c++_11_14/0.md
           - 语言可用性的强化: cpp/c++_11_14/1.md
@@ -62,6 +63,10 @@ nav:
       - js/func.md
       - js/basic.md
       - js/object.md
+      - js/data_type.md
+      - electron:
+          - js/electron/index.md
+          - js/electron/api_demo.md
   - leetcode:
       - leetcode/index.md
       - 周赛:
@@ -147,6 +152,7 @@ nav:
           - leetcode/stack_or_queue/841.md
           - leetcode/stack_or_queue/695.md
           - leetcode/stack_or_queue/5357.md
+          - leetcode/stack_or_queue/365.md
       - 树:
           - leetcode/tree/index.md
           - leetcode/tree/144.md
@@ -329,12 +335,15 @@ nav:
           - thesis/pe/reloc_table.md
       - 论文:
           - thesis/paper/index.md
+          - thesis/paper/who_wrote_this_code.md
+          - thesis/paper/oba2.md
+          - thesis/paper/de-anonymizing_from_binary.md
+          - thesis/paper/feasibility_of_authorship.md
+          - thesis/paper/adversarial_binaries.md
+          - thesis/paper/binary_code_path_obfuscation.md
+          - thesis/paper/binary_code_obfuscation.md
           - thesis/paper/binary_code_homology.md
           - thesis/paper/malicious_code_modification.md
-          - thesis/paper/who_wrote_this_code.md
-          - thesis/paper/de-anonymizing_from_binary.md
-          - thesis/paper/adversarial_binaries.md
-          - thesis/paper/binary_code_obfuscation.md
 # Customization
 extra_javascript:
   - "static/js/extra.js"
