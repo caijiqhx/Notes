@@ -80,6 +80,33 @@ void quickSort(vector<int>& nums, int l, int r) {
 }
 ```
 
+```c++ tab="快排 非递归"
+// 快排的非递归就是用栈存子区间的边界
+void quickSort(vector<int>& nums) {
+    stack<pair<int, int>> st;
+    st.push({0, nums.size() - 1});
+    while(!st.empty()) {
+        int l = st.top().first;
+        int r = st.top().second;
+        st.pop();
+        swap(nums[l], nums[l + rand() % (r - l + 1)]);
+        int finalPos = l + 1;
+        for(int i = l + 1; i <= r; i++) {
+            if(nums[i] < nums[l]) {
+                swap(nums[i], nums[finalPos++]);
+            }
+        }
+        swap(nums[l], nums[--finalPos]);
+        if(l < finalPos - 1) {
+            st.push({l, finalPos - 1});
+        }
+        if(r > finalPos + 1) {
+            st.push({finalPos + 1, r});
+        }
+    }
+}
+```
+
 ```c++ tab="三路快排"
 // 适用于数据中含大量重复元素
 void quickSort(vector<int>& nums, int l, int r) {
