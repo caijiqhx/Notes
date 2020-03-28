@@ -69,6 +69,9 @@ nav:
           - js/electron/api_demo.md
   - leetcode:
       - leetcode/index.md
+      - 数据库:
+          - leetcode/database/index.md
+          - leetcode/database/175.md
       - 周赛:
           - leetcode/contest/index.md
           - leetcode/contest/week-180.md
@@ -95,6 +98,7 @@ nav:
           - leetcode/array/945.md
           - leetcode/array/5348.md
           - leetcode/array/5349.md
+          - leetcode/array/914.md
       - 链表:
           - leetcode/list/index.md
           - leetcode/list/160.md
@@ -282,6 +286,7 @@ nav:
       - network/protocols.md
       - network/ip_addr.md
       - network/devices.md
+      - network/http.md
       - network/http_status_code.md
   - 操作系统:
       - os/index.md
@@ -336,6 +341,11 @@ nav:
               - os/os_lab/lab8/exer1.md
               - os/os_lab/lab8/exer2.md
               - os/os_lab/lab8/lab8.md
+  - 数据库:
+      - database/index.md
+      - database/theory.md
+      - database/sql.md
+      - database/mysql.md
   - 毕业设计:
       - thesis/index.md
       - PE 文件结构:
@@ -349,12 +359,11 @@ nav:
           - thesis/paper/who_wrote_this_code.md
           - thesis/paper/oba2.md
           - thesis/paper/de-anonymizing_from_binary.md
-          - thesis/paper/feasibility_of_authorship.md
           - thesis/paper/adversarial_binaries.md
-          - thesis/paper/binary_code_path_obfuscation.md
           - thesis/paper/binary_code_obfuscation.md
           - thesis/paper/binary_code_homology.md
           - thesis/paper/malicious_code_modification.md
+          - thesis/paper/taxonomy_of_obfuscating_transformations.md
 # Customization
 extra_javascript:
   - "static/js/extra.js"
