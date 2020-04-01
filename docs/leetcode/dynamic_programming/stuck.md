@@ -152,7 +152,7 @@ dp[i][1][1] = max(dp[i - 1][1][1], - prices[i]);
 
 我们不仅需要对 i 遍历，还需要遍历 k，要注意初始状态。当然 k 比较小，我们还可以直接列出来。
 
-```c++ "三维 dp"
+```c++ tab="三维 dp"
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
@@ -177,7 +177,7 @@ public:
 };
 ```
 
-```c++ "优化"
+```c++ tab="优化"
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
