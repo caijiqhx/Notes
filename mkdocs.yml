@@ -5,7 +5,7 @@ site_url: https://notes.caijiqhx.top
 # Repository
 repo_name: caijiqhx/Notes
 repo_url: https://github.com/caijiqhx/Notes
-
+google_analytics: ["UA-162559867-1", "auto"]
 copyright: "Copyright &copy; 2020 caijiqhx"
 
 # Contents
@@ -386,11 +386,13 @@ theme:
     code: "Source Code Pro"
 
 markdown_extensions:
+  - admonition
   - footnotes
   - toc:
       permalink: "*"
   - codehilite:
       linenums: true
+      guess_lang: false
   - pymdownx.arithmatex
   - pymdownx.superfences
   - pymdownx.details
@@ -403,5 +405,5 @@ markdown_extensions:
   - pymdownx.tilde
 
 plugins:
-  - search
+  - search:
   - git-revision-date-localized
