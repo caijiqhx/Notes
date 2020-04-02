@@ -14,6 +14,7 @@ nav:
       - index.md
   - 常用工具:
       - mkdocs: tools/mkdocs.md
+      - tools/mkdocs_zh_search.md
       - vim: tools/vim.md
       - 部署工具:
           - Docker 简介: tools/docker/docker_introduction.md
