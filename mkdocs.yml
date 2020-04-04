@@ -78,6 +78,9 @@ nav:
           - leetcode/contest/week-180.md
           - leetcode/contest/week-181.md
           - leetcode/contest/double_week-22.md
+      - 顺序刷题:
+          - leetcode/in_order/index.md
+          - leetcode/in_order/42.md
       - 数组:
           - leetcode/array/index.md
           - leetcode/array/26.md
