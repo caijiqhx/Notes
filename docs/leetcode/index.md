@@ -10,10 +10,7 @@
 > - [另一位带哥的算法小抄](https://labuladong.gitbook.io/algo/)
 > - [再一位带哥的 leetcode 题解](https://leetcode.wang)
 
-## 每日复习
+![](./interview.png)
 
-- [ ] 快排
-- [ ] 二分查找
-- [ ] 回溯 dfs
-- [ ] bfs
-- [ ] 二叉树遍历
+![](./datastructe_and_algorithm.png)
+
