@@ -82,11 +82,17 @@ nav:
           - leetcode/in_order/index.md
           - leetcode/in_order/12.md
           - leetcode/in_order/13.md
+          - leetcode/in_order/16.md
+          - leetcode/in_order/17.md
+          - leetcode/in_order/18.md
+          - leetcode/in_order/22.md
+          - leetcode/in_order/29.md
           - leetcode/in_order/42.md
           - leetcode/in_order/72.md
           - leetcode/in_order/76.md
           - leetcode/in_order/146.md
           - leetcode/in_order/460.md
+          - leetcode/in_order/c0107.md
       - 数组:
           - leetcode/array/index.md
           - leetcode/array/26.md
