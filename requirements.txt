@@ -1,5 +1,7 @@
-Markdown
-mkdocs
-mkdocs-material
-pymdown-extensions
-mkdocs-git-revision-date-localized-plugin
+Markdown==3.1
+mkdocs==1.0.4
+mkdocs-git-revision-date-localized-plugin==0.4.8
+mkdocs-material==4.6.0
+mkdocs-minify-plugin==0.2.1
+mkdocs-rtd-dropdown==1.0.2
+pymdown-extensions==6.2.1
