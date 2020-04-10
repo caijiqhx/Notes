@@ -24,9 +24,15 @@ Server = https://mirrors.ustc.edu.cn/archlinuxcn/$arch
 
 ## 字体
 
-思源黑体 CN：
+```shell
+sudo pacman -S ttf-roboto noto-fonts ttf-dejavu
+# 文泉驿
+sudo pacman -S wqy-bitmapfont wqy-microhei wqy-microhei-lite wqy-zenhei
+# 思源字体
+sudo pacman -S noto-fonts-cjk adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts
+```
 
-`sudo pacman -S noto-fonts-cjk adobe-source-han-sans-cn-fonts adobe-source-han-serif-cn-fonts`
+对比了一下感觉文泉驿的等宽微米黑比较好用。
 
 ## 中文输入法
 
@@ -83,3 +89,25 @@ deb 包安装工具：`yay -S debtap && sudo debtap -u`
 ## pacman autoremove
 
 `sudo pacman -R $(pacman -Qdtq)`
+
+## 多屏幕显示
+
+先通过 `xrandr` 命令得到屏幕的名字，例如这样
+
+```shell
+$ xrandr
+Screen 0: minimum 8 x 8, current 3840 x 1080, maximum 32767 x 32767
+eDP1 connected primary 1920x1080+0+0 (normal left inverted right x axis y axis) 290mm x 170mm
+   1920x1080     60.02*+  59.93  
+   1680x1050     59.88    60.00  
+   ...
+DP1 disconnected (normal left inverted right x axis y axis)
+HDMI1 connected 1920x1080+1920+0 (normal left inverted right x axis y axis) 530mm x 290mm
+   1024x768      60.00 +
+   1920x1080     60.00*   59.94  
+   ...
+HDMI2 disconnected (normal left inverted right x axis y axis)
+VIRTUAL1 disconnected (normal left inverted right x axis y axis)
+```
+
+得到主屏幕 `eDP1` 和 外接屏幕 `HDMI1`，然后执行 `xrandr --output eDP1 --left-of HDMI1` 实现左右屏幕拼接扩展显示。
