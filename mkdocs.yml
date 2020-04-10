@@ -13,6 +13,7 @@ nav:
   - Introduction:
       - index.md
   - 常用工具:
+      - tools/vscode.md
       - mkdocs: tools/mkdocs.md
       - tools/mkdocs_zh_search.md
       - vim: tools/vim.md
