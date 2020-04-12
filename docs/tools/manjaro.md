@@ -111,3 +111,17 @@ VIRTUAL1 disconnected (normal left inverted right x axis y axis)
 ```
 
 得到主屏幕 `eDP1` 和 外接屏幕 `HDMI1`，然后执行 `xrandr --output eDP1 --left-of HDMI1` 实现左右屏幕拼接扩展显示。
+
+## QQ & WeChat 
+
+字体调整 `env WINEPREFIX="$HOME/.deepinwine/Deepin-WeChat" winecfg`
+
+## Firefox 字体
+
+不爱用 manjaro 的最大原因就是在 chrome 用不了（代理问题）的情况下 Firefox 的字体太小了。。。终于找到了解决方案。
+
+地址栏输入 `about:config` 进入配置界面，搜索 `layout.css.devPixelsPerPx`，默认 tmd 竟然是 -1，这是要折磨死我，修改为 1.25 左右就差不多了。
+
+## 双系统时间差 8 小时
+
+`sudo timedatectl set-local-rtc true`
