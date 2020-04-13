@@ -308,6 +308,9 @@ nav:
       - network/http_status_code.md
   - 操作系统:
       - os/index.md
+      - linux commands:
+          - os/commands/index.md
+          - os/commands/top.md
       - os_lab:
           - os/os_lab/index.md
           - lab1:
