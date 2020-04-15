@@ -82,6 +82,8 @@ nav:
           - leetcode/contest/double_week-22.md
       - 顺序刷题:
           - leetcode/in_order/index.md
+          - leetcode/in_order/4.md
+          - leetcode/in_order/5.md
           - leetcode/in_order/12.md
           - leetcode/in_order/13.md
           - leetcode/in_order/16.md
@@ -93,8 +95,13 @@ nav:
           - leetcode/in_order/72.md
           - leetcode/in_order/76.md
           - leetcode/in_order/146.md
+          - leetcode/in_order/149.md
+          - leetcode/in_order/355.md
           - leetcode/in_order/460.md
-          - leetcode/in_order/c0107.md
+          - leetcode/in_order/542.md
+          - leetcode/in_order/887.md
+          - leetcode/in_order/ci0107.md
+          - leetcode/in_order/ci1603.md
       - 数组:
           - leetcode/array/index.md
           - leetcode/array/26.md
