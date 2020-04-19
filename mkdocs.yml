@@ -102,28 +102,42 @@ nav:
           - leetcode/in_order/887.md
           - leetcode/in_order/ci0107.md
           - leetcode/in_order/ci1603.md
-      - 数组:
-          - leetcode/array/index.md
-          - leetcode/array/26.md
-          - leetcode/array/54.md
-          - leetcode/array/59.md
-          - leetcode/array/67.md
-          - leetcode/array/80.md
-          - leetcode/array/118.md
-          - leetcode/array/119.md
-          - leetcode/array/167.md
-          - leetcode/array/209.md
-          - leetcode/array/189.md
-          - leetcode/array/283.md
-          - leetcode/array/498.md
-          - leetcode/array/561.md
-          - leetcode/array/724.md
-          - leetcode/array/747.md
-          - leetcode/array/5356.md
-          - leetcode/array/945.md
-          - leetcode/array/5348.md
-          - leetcode/array/5349.md
-          - leetcode/array/914.md
+      - 数组和字符串:
+          - leetcode/array_and_string/index.md
+          - leetcode/array_and_string/242.md
+          - leetcode/array_and_string/409.md
+          - leetcode/array_and_string/205.md
+          - leetcode/array_and_string/833.md
+          - leetcode/array_and_string/8.md
+          - leetcode/array_and_string/14.md
+          - leetcode/array_and_string/28.md
+          - leetcode/array_and_string/541.md
+          - leetcode/array_and_string/151.md
+          - leetcode/array_and_string/557.md
+          - leetcode/array_and_string/1071.md
+          - leetcode/array_and_string/415.md
+          - leetcode/array_and_string/43.md
+          - leetcode/array_and_string/1160.md
+          - leetcode/array_and_string/26.md
+          - leetcode/array_and_string/54.md
+          - leetcode/array_and_string/59.md
+          - leetcode/array_and_string/67.md
+          - leetcode/array_and_string/80.md
+          - leetcode/array_and_string/118.md
+          - leetcode/array_and_string/119.md
+          - leetcode/array_and_string/167.md
+          - leetcode/array_and_string/209.md
+          - leetcode/array_and_string/189.md
+          - leetcode/array_and_string/283.md
+          - leetcode/array_and_string/498.md
+          - leetcode/array_and_string/561.md
+          - leetcode/array_and_string/724.md
+          - leetcode/array_and_string/747.md
+          - leetcode/array_and_string/5356.md
+          - leetcode/array_and_string/945.md
+          - leetcode/array_and_string/5348.md
+          - leetcode/array_and_string/5349.md
+          - leetcode/array_and_string/914.md
       - 链表:
           - leetcode/list/index.md
           - leetcode/list/160.md
@@ -149,22 +163,6 @@ nav:
           - leetcode/list/138.md
           - leetcode/list/61.md
           - leetcode/list/82.md
-      - 字符串:
-          - leetcode/string/index.md
-          - leetcode/string/242.md
-          - leetcode/string/409.md
-          - leetcode/string/205.md
-          - leetcode/string/833.md
-          - leetcode/string/8.md
-          - leetcode/string/14.md
-          - leetcode/string/28.md
-          - leetcode/string/541.md
-          - leetcode/string/151.md
-          - leetcode/string/557.md
-          - leetcode/string/1071.md
-          - leetcode/string/415.md
-          - leetcode/string/43.md
-          - leetcode/string/1160.md
       - 栈和队列:
           - leetcode/stack_or_queue/index.md
           - leetcode/stack_or_queue/225.md
