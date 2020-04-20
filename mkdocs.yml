@@ -215,6 +215,7 @@ nav:
           - leetcode/stack_or_queue/365.md
       - 树:
           - leetcode/tree/index.md
+          - leetcode/tree/traversal.md
           - leetcode/tree/144.md
           - leetcode/tree/94.md
           - leetcode/tree/145.md
