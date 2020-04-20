@@ -113,6 +113,7 @@ nav:
           - leetcode/in_order/265.md
           - leetcode/in_order/269.md
           - leetcode/in_order/276.md
+          - leetcode/in_order/285.md
           - leetcode/in_order/286.md
           - leetcode/in_order/351.md
           - leetcode/in_order/355.md
@@ -121,6 +122,7 @@ nav:
           - leetcode/in_order/444.md
           - leetcode/in_order/460.md
           - leetcode/in_order/466.md
+          - leetcode/in_order/510.md
           - leetcode/in_order/542.md
           - leetcode/in_order/758.md
           - leetcode/in_order/887.md
@@ -248,6 +250,14 @@ nav:
           - leetcode/binary_search_tree/703.md
           - leetcode/binary_search_tree/220.md
           - leetcode/binary_search_tree/5179.md
+      - N 叉树:
+          - leetcode/n_ary_tree/index.md
+          - leetcode/n_ary_tree/589.md
+          - leetcode/n_ary_tree/590.md
+          - leetcode/n_ary_tree/429.md
+          - leetcode/n_ary_tree/559.md
+          - leetcode/n_ary_tree/428.md
+          - leetcode/n_ary_tree/431.md
       - 二分查找:
           - leetcode/binary_search/index.md
           - leetcode/binary_search/69.md
