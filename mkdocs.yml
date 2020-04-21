@@ -40,6 +40,7 @@ nav:
       - cpp/casting.md
       - cpp/rtti.md
       - cpp/unordered_set.md
+      - cpp/custom_compare.md
       - C++ 11/14 快速上手:
           - 简介: cpp/c++_11_14/0.md
           - 语言可用性的强化: cpp/c++_11_14/1.md
@@ -258,6 +259,12 @@ nav:
           - leetcode/n_ary_tree/559.md
           - leetcode/n_ary_tree/428.md
           - leetcode/n_ary_tree/431.md
+      - 字典树:
+          - leetcode/trie/index.md
+          - leetcode/trie/208.md
+          - leetcode/trie/648.md
+          - leetcode/trie/667.md
+          - leetcode/trie/642.md
       - 二分查找:
           - leetcode/binary_search/index.md
           - leetcode/binary_search/69.md
