@@ -107,6 +107,7 @@ nav:
           - leetcode/in_order/146.md
           - leetcode/in_order/148.md
           - leetcode/in_order/149.md
+          - leetcode/in_order/165.md
           - leetcode/in_order/218.md
           - leetcode/in_order/252.md
           - leetcode/in_order/253.md
@@ -123,10 +124,15 @@ nav:
           - leetcode/in_order/444.md
           - leetcode/in_order/460.md
           - leetcode/in_order/466.md
+          - leetcode/in_order/468.md
           - leetcode/in_order/510.md
           - leetcode/in_order/542.md
           - leetcode/in_order/758.md
           - leetcode/in_order/887.md
+          - leetcode/in_order/919.md
+          - leetcode/in_order/1027.md
+          - leetcode/in_order/1049.md
+          - leetcode/in_order/1248.md
           - leetcode/in_order/ci0107.md
           - leetcode/in_order/ci1603.md
           - leetcode/in_order/lcp06.md
@@ -262,9 +268,16 @@ nav:
       - 字典树:
           - leetcode/trie/index.md
           - leetcode/trie/208.md
-          - leetcode/trie/648.md
-          - leetcode/trie/667.md
+          - leetcode/trie/211.md
+          - leetcode/trie/212.md
+          - leetcode/trie/336.md
+          - leetcode/trie/421.md
+          - leetcode/trie/425.md
           - leetcode/trie/642.md
+          - leetcode/trie/648.md
+          - leetcode/trie/676.md
+          - leetcode/trie/677.md
+          - leetcode/trie/720.md
       - 二分查找:
           - leetcode/binary_search/index.md
           - leetcode/binary_search/69.md
@@ -346,6 +359,7 @@ nav:
       - offer/of38.md
       - offer/of41.md
       - offer/of43.md
+      - offer/of51.md
       - offer/of57-2.md
       - offer/of59-2.md
       - offer/of62.md
