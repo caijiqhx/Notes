@@ -87,6 +87,7 @@ nav:
           - leetcode/contest/week-185.md
       - 顺序刷题:
           - leetcode/in_order/index.md
+          - leetcode/in_order/3.md
           - leetcode/in_order/4.md
           - leetcode/in_order/5.md
           - leetcode/in_order/12.md
