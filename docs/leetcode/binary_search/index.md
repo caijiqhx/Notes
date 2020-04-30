@@ -3,6 +3,7 @@
 > 参考：
 > 
 > - [二分查找详解](https://labuladong.gitbook.io/algo/suan-fa-si-wei-xi-lie/er-fen-cha-zhao-xiang-jie)
+> - [探索二分查找](https://leetcode-cn.com/explore/learn/card/binary-search/)
 
 Knuth 大佬说过：
 
