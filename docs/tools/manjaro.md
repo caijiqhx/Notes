@@ -125,3 +125,22 @@ VIRTUAL1 disconnected (normal left inverted right x axis y axis)
 ## 双系统时间差 8 小时
 
 `sudo timedatectl set-local-rtc true`
+
+## KDE 配置 Meta 绑定程序菜单
+
+[KDE userbase](https://userbase.kde.org/Plasma/Tips#Windows.2FMeta_Key)
+
+Open “Start Menu” with Windows/Meta key
+
+Feature has been added by default since Plasma 5.8.
+1. If it's not working, make sure your "Start Menu" widget has a global shortcut like Alt+F1 set (you can't assign it directly to Meta, but it will open with Meta if another shortcut is assigned).
+2. Right Click the KDE Icon → Application Menu Settings
+3. Keyboard Shortcuts Tab → Shortcut: Alt+F1
+
+- Latte Dock: If you're using Latte Dock, you will need to run the following commands mentioned in it's Wiki.
+
+```shell
+kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta "org.kde.lattedock,/Latte,org.kde.LatteDock,activateLauncherMenu"
+qdbus org.kde.KWin /KWin reconfigure
+```
+
