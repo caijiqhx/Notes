@@ -62,16 +62,13 @@ nav:
               - cpp/design_pattern/factory_method.md
               - cpp/design_pattern/abstract_factory.md
               - cpp/design_pattern/builder.md
-  - javascript:
-      - js/index.md
-      - js/quick_start.md
-      - js/func.md
-      - js/basic.md
-      - js/object.md
-      - js/data_types.md
-      - electron:
-          - js/electron/index.md
-          - js/electron/api_demo.md
+  - Python:
+      - python/index.md
+      - python/python_json.md
+      - Python 100 Days:
+          - python/Python_100_days/index.md
+          - python/Python_100_days/01-15.md
+          - python/Python_100_days/16-20.md
   - leetcode:
       - leetcode/index.md
       - 数据库:
