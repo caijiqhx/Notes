@@ -54,3 +54,4 @@ for x in string.letters + string.digits:
     print x, disasm(x+'ABCDEFG').split('\n')[0][6:]
 ```
 
+感觉现在就写 shellcode 有点费劲，还是先用 pwntools 给的吧
