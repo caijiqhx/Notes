@@ -16,6 +16,7 @@ nav:
       - tools/vscode.md
       - tools/manjaro.md
       - tools/gitbook.md
+      - tools/regex.md
       - mkdocs: tools/mkdocs.md
       - tools/mkdocs_zh_search.md
       - vim: tools/vim.md
