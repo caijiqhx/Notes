@@ -26,6 +26,11 @@ nav:
       - 调试工具:
           - IDA: tools/ida.md
   - 安全技术:
+      - bamboofox:
+          - index.md
+          - pwn_intro.md
+          - pwn从入门到放弃.md
+      - CTF-Wiki: ctf-wiki_rop.md
       - 栈介绍: security/stackoverflow/stack_introduction.md
   - 逆向分析:
       - reverse/index.md
@@ -506,6 +511,11 @@ theme:
   palette:
     primary: "teal"
     accent: "red"
+  icon:
+    logo: material/cloud
+  features:
+    - tabs
+    - instant
   feature:
     tabs: true
   font:
@@ -520,12 +530,20 @@ markdown_extensions:
   - codehilite:
       linenums: true
       guess_lang: false
-  - pymdownx.arithmatex
+  - pymdownx.tabbed
   - pymdownx.superfences
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
   - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.inlinehilite
-  - pymdownx.mark
   - pymdownx.magiclink
+  - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.tasklist:
       custom_checkbox: true
@@ -533,4 +551,9 @@ markdown_extensions:
 
 plugins:
   - search:
+      prebuild_index: true
+      separator: '[\s\-\.]+'
+      lang:
+        - en
+        - ja
   - git-revision-date-localized
