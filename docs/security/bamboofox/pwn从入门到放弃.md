@@ -31,7 +31,7 @@ int main(){
 
 通过栈溢出覆盖返回地址跳转执行 `shell()`
 
-如果用 gcc 编译会在 main 函数前面加一些奇怪的指令序列。。。直接覆盖程序会崩溃
+如果用 gcc 编译会在 main 函数前面加一些奇怪的指令序列。。。直接覆盖程序会崩溃（因为 gcc 编译的 function prologue 和 epilogue 发生了变化，stackoverflow 会破坏 esp 的值 [What is the purpose of these instructions before the main preamble?](https://reverseengineering.stackexchange.com/questions/15173/what-is-the-purpose-of-these-instructions-before-the-main-preamble)
 
 使用 `clang -m32 ret2code.c -o ret2code` 编译即可，对应的汇编就是最熟悉的样子：
 
