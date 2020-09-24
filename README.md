@@ -2,8 +2,6 @@
 
 笔记分着放太麻烦了，就都堆一起吧。
 
-
-
 使用 mkdocs 部署
 
 | directory in docs/     |                              |
