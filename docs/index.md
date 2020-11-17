@@ -10,31 +10,6 @@
 
 点击色块可更换主题的主色
 
-<style>
-  .md-typeset button[data-md-color-primary] {
-    width: 6.5rem;
-    margin-bottom: .2rem;
-    padding: 1.2rem .4rem .2rem;
-    -webkit-transition: background-color .25s,opacity .25s;
-    transition: background-color .25s,opacity .25s;
-    border-radius: .1rem;
-    font-size: .64rem;
-    color: #fff;
-    text-align: left;
-    cursor: pointer;
-    cursor: pointer;
-    transition: opacity 250ms;
-  }
-  .md-typeset button[data-md-color-primary]:hover {
-    opacity: 0.75;
-  }
-  .md-typeset button[data-md-color-primary] {
-    display: inline-block;
-    color: var(--md-primary-bg-color);
-    background-color: var(--md-primary-fg-color);
-  }
-</style>
-
 <button data-md-color-primary="red">Red</button>
 <button data-md-color-primary="pink">Pink</button>
 <button data-md-color-primary="purple">Purple</button>
@@ -71,31 +46,6 @@
 > 默认 `red`
 
 点击色块更换主题的辅助色
-
-<style>
-  .md-typeset button[data-md-color-accent] {
-    cursor: pointer;
-    transition: opacity 250ms;
-    width: 6.5rem;
-    margin-bottom: .2rem;
-    padding: 1.2rem .4rem .2rem;
-    -webkit-transition: background-color .25s,opacity .25s;
-    transition: background-color .25s,opacity .25s;
-    border-radius: .1rem;
-    color: #fff;
-    font-size: .64rem;
-    text-align: left;
-    cursor: pointer;
-  }
-  .md-typeset button[data-md-color-accent]:hover {
-    opacity: 0.75;
-  }
-  .md-typeset button[data-md-color-accent]   {
-    display: inline-block;
-    color: black;
-    background-color: var(--md-accent-fg-color);
-  }
-</style>
 
 <button data-md-color-accent="red">Red</button>
 <button data-md-color-accent="pink">Pink</button>

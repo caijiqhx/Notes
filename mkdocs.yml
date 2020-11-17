@@ -118,7 +118,7 @@ nav:
       - database/sql.md
       - database/mysql.md
   - UCAS:
-      - index.md
+      - ucas/index.md
       - 虚拟化概述: ucas/virtualization_overview/virtualization.md
 
 # Customization
@@ -155,17 +155,12 @@ markdown_extensions:
   - codehilite:
       linenums: true
       guess_lang: false
-  - pymdownx.tabbed
-  # - pymdownx.superfences
   - pymdownx.arithmatex
   - pymdownx.betterem:
       smart_enable: all
   - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
   - pymdownx.inlinehilite
   - pymdownx.magiclink
   - pymdownx.mark
