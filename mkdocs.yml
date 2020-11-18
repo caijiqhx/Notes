@@ -120,6 +120,7 @@ nav:
   - UCAS:
       - ucas/index.md
       - 虚拟化概述: ucas/virtualization_overview/virtualization.md
+      - 侧信道攻击: ucas/side_channel/side_channel.md
 
 # Customization
 extra_javascript:

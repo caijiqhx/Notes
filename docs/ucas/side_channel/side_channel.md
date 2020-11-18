@@ -56,6 +56,10 @@ cache 是 w 路组相联，由 S 个 set，每个 set 是有 w 个 line，一个
 
 物理地址分为 line 内偏移，低 6 位；set index，$log_2S$ 位；tag 剩余的位。
 
+![image-20201118122412177](image-20201118122412177.png)
+
+![](741085_GE2EVF2PE7XM3A9.jpg)
+
 ##### Cache replacement policies
 
 cache 满的时候决定那个元素要被逐出（写回内存）
