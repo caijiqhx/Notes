@@ -14,5 +14,19 @@ Linux 0.11 是一个支持多进程的现代操作系统。这就意味着，各
 
 ## 设置根设备、硬盘
 
-首先初始化根设备和硬盘
+首先初始化根设备和硬盘，用 bootsect 中写入机器系统数据 `0x901FC` 的根设备为软盘的信息，设置软盘为根设备，并用起始自 `0x90080` 的 32 字节的机器系统数据的硬盘参数信息设置内核中硬盘信息 drive\_info。
 
+```c
+#define DRIVE_INFO (*(struct drive_info *)0x90080)	// 硬盘参数表
+#define ORIG_ROOT_DEV (*(unsigned short *)0x901FC)	// 根设备号
+struct drive_info { char dummy[32]; } drive_info;  // 用于存放硬盘参数表信息
+void main(void) {
+    ROOT_DEV = ORIG_ROOT_DEV;		// ROOT_DEV 在 fs.h 中声明为 extern int
+ 	drive_info = DRIVE_INFO;
+    ...
+}
+```
+
+## 规划物理内存格局，设置缓冲区、虚拟盘、主内存
+
+2020/11/20 23:07 stop
