@@ -121,6 +121,12 @@ nav:
       - ucas/index.md
       - 虚拟化概述: ucas/virtualization_overview/virtualization.md
       - 侧信道攻击: ucas/side_channel/side_channel.md
+      - QEMU/KVM:
+          - ucas/qemu_kvm/index.md
+          - ucas/qemu_kvm/qemu_kvm_overview.md
+      - Linux Kernel:
+          - ucas/linux_kernel/index.md
+          - ucas/linux_kernel/boot_to_main.md
 
 # Customization
 extra_javascript:
