@@ -366,4 +366,188 @@ empty_8042:
 
 head 程序和内核程序链接成 system 模块，所以之前将 system 模块移动到 `0x00000` 位置，也就是 head 程序在 `0x00000`，占用 25KB+184B 空间。
 
-head 程序除了做一些调用 main 的准备工作之外，还用程序自身的代码在程序自身的内存空间创建了内核分页机制，即在 `0x00000` 的位置创建了页目录表、页表、缓冲器、GDT、IDT，将 head 程序已经执行过的代码所占内存空间覆盖。
+head 程序除了做一些调用 main 的准备工作之外，还用程序自身的代码在程序自身的内存空间创建了内核分页机制，即在 `0x00000` 的位置创建了页目录表、页表、缓冲器、GDT、IDT，将 head 程序已经执行过的代码所占内存空间覆盖。代码如下：
+
+```assembly
+.text
+.globl _idt,_gdt,_pg_dir,_tmp_floppy_area
+_pg_dir:
+startup_32:
+	movl $0x10,%eax
+	mov %ax,%ds
+	mov %ax,%es
+	mov %ax,%fs
+	mov %ax,%gs
+```
+
+\_pg\_dir 标识内核分页机制完成后的内核起始位置，也就是物理内存起始位置 `0x00000`。head 程序在此处建立页目录表，为分页机制做准备。实模式下，CS 本身就是代码段基址，而在保护模式下，CS 本身不是代码段基址，而是代码段选择符。
+
+将 DS、ES、FS、GS 等其他寄存器从实模式转变为保护模式，值为 `0x10`，对应的是 GDT 的第 2 项，也就是说这四个寄存器使用同一个全局描述符。
+
+SS 要变成栈选择符，栈顶指针也要换成 32 位的 ESP：
+
+```assembly
+; 将内存(32/48 位)低字传送给16/32位寄存器，把高16位传给相应的段寄存器 lds/les/lfs/lgs/lss mem, reg
+lss _stack_start,%esp
+```
+
+在 kernel/sched.c 中定义了：
+
+```c
+long user_stack[PAGE_SIZE>>2]
+stack_start = { &user_stack[PAGE_SIZE>>2], 0x10}
+```
+
+可计算出起始位置为 `0x1E25C`，即最后将 SS 设置为与前面 4 个段选择符相同，栈指针也变为了 ESP。
+
+从实模式转变到保护模式，段基址的使用方法和实模式差别非常大，要使用 GDT 产生基址。
+
+接下来 head 程序对 IDT 进行设置，代码如下：
+
+```assembly
+setup_idt:
+	lea ignore_int,%edx
+	movl $0x00080000,%eax
+	movw %dx,%ax		/* selector = 0x0008 = cs */
+	movw $0x8E00,%dx	/* interrupt gate - dpl=0, present */
+
+	lea _idt,%edi
+	mov $256,%ecx
+rp_sidt:					; 参考中断描述符格式
+	movl %eax,(%edi) 		; eax : 0008, low(ignore_int)
+	movl %edx,4(%edi)		; eax : high(ignore_int), 8E00
+	addl $8,%edi
+	dec %ecx
+	jne rp_sidt
+	lidt idt_descr
+	ret
+...
+/* This is the default interrupt "handler" :-) */
+int_msg:
+	.asciz "Unknown interrupt\n\r"
+.align 2
+ignore_int:
+...
+idt_descr:
+	.word 256*8-1		# idt contains 256 entries
+	.long _idt
+...
+_idt:	.fill 256,8,0		# idt is uninitialized
+```
+
+IDT 有 256 项，以上代码将其中的断服务程序都设置成了 ignore_int，以后真正用到的时候可以再装。idt_descr 是要写入 IDTR 的限长和基地址 \_idt，相当于前面的 idt\_48。
+
+![image-20201120181505464](image-20201120181505464.png)
+
+![image-20201120181447390](image-20201120181447390.png)
+
+构造 IDT 先搭建了中断机制的框架，实际的中断服务程序挂接则在 main 函数中完成，未使用的中断描述符都指向了一个会输出错误提示的程序。
+
+现在，head 程序要废除已有的 GDT，并在内核中的新位置重新创建 GDT。代码如下：
+
+```assembly
+setup_gdt:
+	lgdt gdt_descr
+	ret
+...
+gdt_descr:
+	.word 256*8-1		# so does gdt (not that that's any
+	.long _gdt		# magic number, but it works for me :^)
+
+	.align 3
+_idt:	.fill 256,8,0		# idt is uninitialized
+
+_gdt:	.quad 0x0000000000000000	/* NULL descriptor */
+	.quad 0x00c09a0000000fff	/* 16Mb */
+	.quad 0x00c0920000000fff	/* 16Mb */
+	.quad 0x0000000000000000	/* TEMPORARY - don't use */
+	.fill 252,8,0			/* space for LDT's and TSS's etc */
+```
+
+新的 GDT 只修改了原表中的段限长。
+
+![image-20201120183056120](image-20201120183056120.png)
+
+原来的 GDT 是在 setup 程序的数据里，而 setup 模块会被覆盖，所以找个安全的位置就在 head 程序中。也无法做到在执行 setup 时直接就把 GDT 复制到 head 的位置，因为 system 模块的移动也会覆盖数据。
+
+段限长更改后需要重新设置 DS、ES、FS、GS 及 SS，与之前的代码相似。
+
+设置完还要检验 A20 地址线是否确实打开，检测的代码如下：
+
+```assembly
+; 检验 A20 地址线是否打开 往 0x000000 写值，跟 0x100000 比较，如果相等就一直比较下去，即死机
+	xorl %eax,%eax
+1:	incl %eax		# check that A20 really IS enabled
+	movl %eax,0x000000	# loop forever if it isn't
+	cmpl %eax,0x100000
+```
+
+确定 A20 打开后，如果 head 程序检测到数学协处理器存在，则将其设置为保护模式工作状态。（现在看应该没啥用
+
+head 程序将为调用 main 函数做最后的准备，代码如下：
+
+```assembly
+after_page_tables:
+	pushl $0		# These are the parameters to main :-)
+	pushl $0
+	pushl $0
+	pushl $L6		# return address for main, if it decides to.
+	pushl $_main
+	jmp setup_paging
+L6:
+	jmp L6			# main should never return here, but
+				# just in case, we know what happens.
+```
+
+依次将 envp、argv、argc 压栈，然后将 L6 标号作为 main 的返回地址入栈，将 main 地址作为当前返回地址入栈，这样 head 执行完通过 ret 指令就直接执行 main 函数。压栈完成后，跳转到 setup_paging，开始创建分页机制。
+
+先将页目录表和 4 个页表（16 M 物理内存）放在起始位置，从内存起始位置开始的 5 页空间内容全部清零。将页目录表和 4 个页表放在物理内存的起始位置，意义重大，是操作系统能够掌握全局、掌控进程在内存中安全运行的基石之一。之后设置页目录表的前 4 项指向后面的 4 个页表。
+
+设置完页目录表后，Linux 0.11 在保护模式下支持的最大寻址地址为 `0xFFFFFF` 16MB，此处将第 4 个页表的最后一个页表项即 pg3+4092 指向寻址范围的最后一个页面，即 `0xFFF000`开始的 4KB 大小的空间。然后开始从高地址向低地址填写 4 个页表，依次指向内存从高地址向低地址方向的各个页面。最后填满整个页表。
+
+<img src="image-20201120200130065.png" alt="image-20201120200130065" style="zoom:67%;" />
+
+对应的代码如下：
+
+```assembly
+.align 2
+setup_paging:
+	movl $1024*5,%ecx		/* 5 pages - pg_dir+4 page tables */
+	xorl %eax,%eax
+	xorl %edi,%edi			/* pg_dir is at 0x000 */
+	cld						; 前 5 页置 0
+	rep stosl				; stosl 将 eax 的值保存到 es:edi 处，edi += 4
+	movl $pg0+7,_pg_dir		/* set present bit/user r/w */
+	movl $pg1+7,_pg_dir+4		/*  --------- " " --------- */
+	movl $pg2+7,_pg_dir+8		/*  --------- " " --------- */
+	movl $pg3+7,_pg_dir+12		/*  --------- " " --------- */
+	movl $pg3+4092,%edi
+	movl $0xfff007,%eax		/*  16Mb - 4096 + 7 (r/w user,p) */
+	std				; 最后一个页表项指向 16 M 的最末 4KB
+1:	stosl			/* fill pages backwards - more efficient :-) */
+	subl $0x1000,%eax		; 从后往前一直重复
+	jge 1b
+```
+
+以上工作完成后，内存布局如下，可以看出只有 184B 的剩余代码。
+
+![image-20201120200900478](image-20201120200900478.png)
+
+
+
+最后就是将页目录表地址写入 CR3，再将 CR0 最高位置 1 开启分页。代码如下：
+
+```assembly
+	xorl %eax,%eax		/* pg_dir is at 0x0000 */
+	movl %eax,%cr3		/* cr3 - page directory start */
+	movl %cr0,%eax
+	orl $0x80000000,%eax
+	movl %eax,%cr0		/* set paging (PG) bit */
+	ret			/* this also flushes prefetch-queue */
+```
+
+回过头看，system 模块被移动到 `0x00000`，在内存的起始位置建立内核分页机制，最后还把页目录表放在起始位置，这都为操作系统内核控制用户程序奠定了基础。最后的最后，head 程序执行 ret 指令，跳入 main 函数执行。这里使用了较为巧妙的仿 call 调用 main 函数的方法，同时使得 main 函数的返回地址为 L6，万一 main 出错返回还会继续执行。
+
+到此，Linux 0.11 内核启动的一个重要阶段已经完成，接下来就要进入 main 函数对应的代码了。需要提示的是，**此时仍处在关闭中断的状态**！
+
+下一章再见！
