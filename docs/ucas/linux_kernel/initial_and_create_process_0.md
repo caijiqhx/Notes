@@ -582,6 +582,11 @@ __asm__ ("movw $104,%1\n\t" \
 
 #define set_tss_desc(n,addr) _set_tssldt_desc(((char *) (n)),((int)(addr)),"0x89")
 #define set_ldt_desc(n,addr) _set_tssldt_desc(((char *) (n)),((int)(addr)),"0x82")
+// include/linux/sched.h
+#define _TSS(n) ((((unsigned long) n)<<4)+(FIRST_TSS_ENTRY<<3))
+#define _LDT(n) ((((unsigned long) n)<<4)+(FIRST_LDT_ENTRY<<3))
+#define ltr(n) __asm__("ltr %%ax"::"a" (_TSS(n)))
+#define lldt(n) __asm__("lldt %%ax"::"a" (_LDT(n)))
 // 内核调度程序的初始化子程序
 void sched_init(void)
 {
@@ -594,6 +599,7 @@ void sched_init(void)
 	set_ldt_desc(gdt+FIRST_LDT_ENTRY,&(init_task.task.ldt));
     // 清任务数组和描述符表项(注意 i=1 开始，所以初始任务的描述符还在)。描述符项结构
     // 定义在文件include/linux/head.h中。
+    // 这里应该是溢出了？
 	p = gdt+2+FIRST_TSS_ENTRY;
 	for(i=1;i<NR_TASKS;i++) {
 		task[i] = NULL;
@@ -612,5 +618,37 @@ void sched_init(void)
 }
 ```
 
-将进程 0 的 task_struct 中的 TSS 和 LDT 挂接到 GDT 后，将 task[64] 和 GDT 的后续内容置零。
+将进程 0 的 task_struct 中的 TSS 和 LDT 挂接到 GDT 后，将 task[64] 和 GDT 的后续内容置零。最后将 TR 寄存器指向 TSS0、LDTR 指向 LDT0。
 
+### 设置时钟中断
+
+下面设置时钟中断，时钟中断是进程调度的基础，代码如下：
+
+```c
+// PC机8253定时芯片的输入时钟频率约为1.193180MHz. Linux内核希望定时器发出中断的频率是
+// 100Hz，也即没10ms发出一次时钟中断。因此这里的LATCH是设置8253芯片的初值。
+#define HZ 100
+#define LATCH (1193180/HZ)	
+	// 下面代码用于初始化8253定时器。通道0，选择工作方式3，二进制计数方式。
+	// 通道0的输出引脚接在中断控制主芯片的IRQ0上，它每10毫秒发出一个IRQ0请求。
+	// LATCH是初始定时计数值。
+	outb_p(0x36,0x43);		/* binary, mode 3, LSB/MSB, ch 0 */
+	outb_p(LATCH & 0xff , 0x40);	/* LSB */	// 定时值低字节
+	outb(LATCH >> 8 , 0x40);		/* MSB */	// 高字节
+	// 设置时钟中断处理程序句柄(设置时钟中断门)。修改中断控制器屏蔽码，允许时钟中断。
+    // 然后设置系统调用中断门。这两个设置中断描述符表IDT中描述符在宏定义在文件
+    // include/asm/system.h中。
+	set_intr_gate(0x20,&timer_interrupt);
+	outb(inb_p(0x21)&~0x01,0x21);
+	set_system_gate(0x80,&system_call);
+```
+
+先初始化 8253 定时器，设置系统每 10ms 发生一次时钟中断。然后将 time_interrupt 挂接到 IDT，并允许 8259A 的 IRQ0 请求。（但是 CPU 现在还是关中断，并不会响应
+
+#### 设置系统调用总入口
+
+最后将系统调用处理函数 system_call 挂载到 int 0x80。
+
+## 初始化缓冲管理结构
+
+缓冲区是
