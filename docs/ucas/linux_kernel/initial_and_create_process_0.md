@@ -16,7 +16,7 @@ Linux 0.11 是一个支持多进程的现代操作系统。这就意味着，各
 
 首先初始化根设备和硬盘，用 bootsect 中写入机器系统数据 `0x901FC` 的根设备为软盘的信息，设置软盘为根设备，并用起始自 `0x90080` 的 32 字节的机器系统数据的硬盘参数信息设置内核中硬盘信息 drive\_info。
 
-```c
+```CQL
 #define DRIVE_INFO (*(struct drive_info *)0x90080)	// 硬盘参数表
 #define ORIG_ROOT_DEV (*(unsigned short *)0x901FC)	// 根设备号
 struct drive_info { char dummy[32]; } drive_info;  // 用于存放硬盘参数表信息
@@ -62,9 +62,9 @@ void main(void) {
 
 1MB 以上都是扩展内存，扩展内存数存在之前 setup 保存的机器系统数据 0x90002 处。对于不同物理内存容量，缓冲区末端设置了不同的值，缓冲区的起始位置会在后面介绍。
 
-## 设置虚拟盘空间并虚拟化
+## 设置虚拟盘空间并初始化
 
-如果在 Makefile 中定义了 RAMDISK，则初始化虚拟盘，主内存将减少。代码如下：
+如果 在 Makefile 中定义了 RAMDISK，则初始化虚拟盘，主内存将减少。代码如下：
 
 ```c
 #ifdef RAMDISK
@@ -86,6 +86,7 @@ struct blk_dev_struct blk_dev[NR_BLK_DEV] = {
 	{ NULL, NULL },		/* dev tty */
 	{ NULL, NULL }		/* dev lp */	// 打印机设备
 };
+// kernel/blk_drv/ramdisk.c
 #define MAJOR_NR 1
 #define DEVICE_REQUEST do_rd_request
 // 返回内存虚拟盘所需的内存量
@@ -117,10 +118,11 @@ rd_init 为虚拟盘区分配了 RAMDISK KB的数据，并置零。
 #define LOW_MEM 0x100000    
 #define PAGING_MEMORY (15*1024*1024)
 #define PAGING_PAGES (PAGING_MEMORY>>12)    
-#define MAP_NR(addr) (((addr)-LOW_MEM)>>12)    
-// 物理内存映射字节图（1字节代表1页内存）。每个页面对应的字节用于标志页面当前引
-// 用（占用）次数。它最大可以映射15MB的内存空间。在初始化函数mem_init()中，对于
-// 不能用做主内存页面的位置均都预先被设置成USED（100）.
+#define MAP_NR(addr) (((addr)-LOW_MEM)>>12)
+static long HIGH_MEMORY = 0;            // 全局变量，存放实际物理内存最高端地址
+// 物理内存映射字节图（1字节代表1页内存）。
+// 每个页面对应的字节用于标志页面当前引用（占用）次数。它最大可以映射15MB的内存空间。
+// 在初始化函数mem_init()中，对于不能用做主内存页面的位置均都预先被设置成USED（100）。
 static unsigned char mem_map [ PAGING_PAGES ] = {0,};   
 // 物理内存管理初始化    
 void mem_init(long start_mem, long end_mem)
@@ -599,7 +601,6 @@ void sched_init(void)
 	set_ldt_desc(gdt+FIRST_LDT_ENTRY,&(init_task.task.ldt));
     // 清任务数组和描述符表项(注意 i=1 开始，所以初始任务的描述符还在)。描述符项结构
     // 定义在文件include/linux/head.h中。
-    // 这里应该是溢出了？
 	p = gdt+2+FIRST_TSS_ENTRY;
 	for(i=1;i<NR_TASKS;i++) {
 		task[i] = NULL;
@@ -651,4 +652,164 @@ void sched_init(void)
 
 ## 初始化缓冲管理结构
 
-缓冲区是内存与外设进行数据交互的媒介。内存与硬盘最大的区别在于，硬盘的作用仅仅是对数据信息进行断点保存，而不参与运算，而内存除了需要对数据进行保存以外，更重要的是要与 CPU、总线配合进行数据运算。
+缓冲区是内存与外设进行数据交互的媒介。内存与硬盘最大的区别在于，硬盘的作用仅仅是对数据信息进行断电保存，而不参与运算，而内存除了需要对数据进行保存以外，更重要的是要与 CPU、总线配合进行数据运算。缓冲区介于两者之间，即对数据信息进行保存，也能参与像查找、组织之类的间接、辅助性运算。有了缓冲区这个媒介之后，对外设而言，它仅需要考虑与缓冲区进行数据交互是否符合要求，而不需要考虑内存如何使用这些交互的数据；对内存而言，它也仅需要考虑与缓冲区进行交互的条件是否成熟，而不需要关心此时外设对缓冲区的交互情况。
+
+操作系统通过 hash_table[NR_HASH]、buffer_head 双向链表组成的复杂的哈希表管理缓冲区。调用 buffer_init 函数初始化缓冲区，代码如下：
+
+```c
+    // 缓冲管理初始化，建内存链表等。(fs/buffer.c)
+	buffer_init(buffer_memory_end);
+...
+// fs/buffer.c
+// 变量end是由编译时的连接程序ld生成，用于表明内核代码的末端，即指明内核模块某段位置。
+// 这里用它来表明高速缓冲区开始于内核代码某段位置。
+extern int end;
+struct buffer_head * start_buffer = (struct buffer_head *) &end;
+struct buffer_head * hash_table[NR_HASH];           // NR_HASH ＝ 307项
+static struct buffer_head * free_list;              // 空闲缓冲块链表头指针
+int NR_BUFFERS = 0;                                 // 系统含有缓冲区块的个数
+// 缓冲区初始化函数
+// 参数buffer_end是缓冲区内存末端。对于具有16MB内存的系统，缓冲区末端被设置为4MB,
+// 对于有8MB内存的系统，缓冲区末端被设置为2MB。
+// 该函数从缓冲区开始位置start_buffer处和缓冲区末端buffer_end处分别同时设置(初始化)
+// 缓冲块头结构和对应的数据块。直到缓冲区中所有内存被分配完毕。
+void buffer_init(long buffer_end)
+{
+	struct buffer_head * h = start_buffer;
+	void * b;
+	int i;
+
+    // 缓冲区末端如果是1MB，那么应该设置b为640KB，640KB-1MB 被显存和 BIOS 占用。
+	if (buffer_end == 1<<20)
+		b = (void *) (640*1024);
+	else
+		b = (void *) buffer_end;
+    // 这段代码用于初始化缓冲区，建立空闲缓冲区块循环链表，并获取系统中缓冲块数目。
+    // 操作的过程是从缓冲区高端开始划分1KB大小的缓冲块，与此同时在缓冲区低端建立
+    // 描述该缓冲区块的结构buffer_head,并将这些buffer_head组成双向链表。
+    // h是指向缓冲头结构的指针，而h+1是指向内存地址连续的下一个缓冲头地址。
+    // 为保证有足够内存存储缓冲头，需要b所指向的内存块地址 >= h 缓冲头的末端，即 >= h+1.
+	while ( (b -= BLOCK_SIZE) >= ((void *) (h+1)) ) {
+		h->b_dev = 0;                       // 使用该缓冲块的设备号
+		h->b_dirt = 0;                      // 脏标志，即缓冲块修改标志
+		h->b_count = 0;                     // 缓冲块引用计数
+		h->b_lock = 0;                      // 缓冲块锁定标志
+		h->b_uptodate = 0;                  // 缓冲块更新标志(或称数据有效标志)
+		h->b_wait = NULL;                   // 指向等待该缓冲块解锁的进程
+		h->b_next = NULL;                   // 指向具有相同hash值的下一个缓冲头
+		h->b_prev = NULL;                   // 指向具有相同hash值的前一个缓冲头
+		h->b_data = (char *) b;             // 指向对应缓冲块数据块（1024字节）
+		h->b_prev_free = h-1;               // 指向链表中前一项
+		h->b_next_free = h+1;               // 指向连表中后一项
+		h++;                                // h指向下一新缓冲头位置
+		NR_BUFFERS++;                       // 缓冲区块数累加
+		if (b == (void *) 0x100000)         // 若b递减到等于1MB，则跳过384KB
+			b = (void *) 0xA0000;           // 让b指向地址0xA0000(640KB)处
+	}
+	h--;                                    // 让h指向最后一个有效缓冲块头
+	free_list = start_buffer;               // 让空闲链表头指向头一个缓冲快
+	free_list->b_prev_free = h;             // 链表头的b_prev_free指向前一项(即最后一项)。
+	h->b_next_free = free_list;             // h的下一项指针指向第一项，形成一个环链
+    // 最后初始化hash表，置表中所有指针为NULL。
+	for (i=0;i<NR_HASH;i++)
+		hash_table[i]=NULL;
+}
+```
+
+前面规划物理内存格局时提到缓冲区的起始位置尚未确定，这里的 start_buffer 指定了缓冲区的起始位置，根据链接程序 ld 生成的 end 变量设置。
+
+初始化的过程就是从缓冲区起始位置和末端同时开始，相对增长，配对初始化 buffer_head 和缓冲块，直到空间不足。buffer_head 的设备号、引用次数、更新标志、脏标志、锁定标志都设为 0，b_data 指向对应的缓冲块。利用 b_prev_free、b_next_free 将所有的 buffer_head 形成双向链表。free_list 指向第一个缓冲块，最后形成环形双向链表。b_prev、b_next 初始化为空，后续使用时将于 hash_table 挂接。最后清空 hash_table[NR_HASH]。
+
+## 初始化硬盘
+
+硬盘的初始化为进程与硬盘这种块设备进行 I/O 通信建立了环境基础。其实就是调用 hd_init 设置硬盘中断，代码如下：
+
+```c
+	hd_init();                              // 硬盘初始化，kernel/blk_drv/hd.c
+...
+// kernel/blk_drv/hd.c
+#define MAJOR_NR 3
+#define DEVICE_REQUEST do_hd_request
+// 硬盘系统初始化
+// 设置硬盘中断描述符，并允许硬盘控制器发送中断请求信号。
+// 该函数设置硬盘设备的请求项处理函数指针为do_hd_request(),然后设置硬盘中断门描述符。
+// hd_interrupt(kernel/system_call.s)
+void hd_init(void)
+{
+	blk_dev[MAJOR_NR].request_fn = DEVICE_REQUEST;      // do_hd_request()
+	set_intr_gate(0x2E,&hd_interrupt);					
+	outb_p(inb_p(0x21)&0xfb,0x21);                      // 允许从芯片中断请求
+	outb(inb_p(0xA1)&0xbf,0xA1);                       	// 允许发送 IRQ14 硬盘中断
+}
+```
+
+## 初始化软盘
+
+软盘的初始化与硬盘类似，就是换个处理函数。代码如下：
+
+```c
+	floppy_init();                          // 软驱初始化，kernel/blk_drv/floppy.c
+...
+// kernel/blk_drv/floppy.c
+#define MAJOR_NR 2
+#define DEVICE_REQUEST do_fd_request
+// 软盘系统初始化
+// 设置软盘块设备请求项的处理函数do_fd_request(),并设置软盘中断门,对应硬件中断请求信号IRQ6。
+// 然后取消对该中断信号的屏蔽，以允许软盘控制器FDC发送中断请求信号。
+void floppy_init(void)
+{
+    // 设置软盘中断门描述符。floppy_interrupt(kernel/system_call.s)是其中断处
+    // 理过程。中断号为int 0x26(38),对应硬件中断请求信号IRQ6.
+	blk_dev[MAJOR_NR].request_fn = DEVICE_REQUEST;      // =do_fd_request()
+	set_trap_gate(0x26,&floppy_interrupt);              // 设置陷阱门描述符
+	outb(inb_p(0x21)&~0x40,0x21);                       // 复位软盘中断请求屏蔽位
+}
+```
+
+## 开启中断
+
+现在，系统中的中断服务程序都已经和 IDT 正常挂接，中断服务体系构建完毕。可以开启中断了！代码如下：
+
+```c
+	sti();                                  // 所有初始化工作都做完了，开启中断
+...
+// include/asm/system.h
+#define sti() __asm__ ("sti"::)
+```
+
+设置开启或屏蔽中断的过程其实就是设置 EFLAGS 寄存器 IF/9 标志位的操作，置位表示屏蔽。
+
+## 进程 0 由 0 特权级翻转到 3 特权级，成为真正的进程
+
+Linux 规定，除进程 0 之外的所有进程都要由一个已有进程在 3 特权级下创建。Linux 0.11 中，进程 0 的代码和数据都是写在内核代码、数据区，且此前处在 0 特权级，严格上不是真正意义上的进程。在进程 0 正式创建进程 1 之前，要将进程 0 由 0 特权级转变为 3 特权级。调用 move_to_user_mode 函数，模仿中断返回的动作，实现特权级转变。代码如下：
+
+```c
+    // 下面过程通过在堆栈中设置的参数，利用中断返回指令启动任务0执行。
+	move_to_user_mode();                    // 移到用户模式下执行
+...
+// include/asm/system.h
+// 移动到用户模式运行
+// 利用 iret 指令实现从内核模式移动到初始任务 0 中执行
+// LDT 在 include/linux/sched.h INIT_TASK 处已经定义
+#define move_to_user_mode() \
+__asm__ (
+    "movl %%esp,%%eax\n\t" \			// 保存 esp
+	"pushl $0x17\n\t" \					// ss 00010111b 段选择符 [1:0]表示特权级3 [2]表示LDT[2]
+	"pushl %%eax\n\t" \					// esp
+	"pushfl\n\t" \						// eflags
+	"pushl $0x0f\n\t" \					// cs 00001111b 段选择符 [1:0]表示特权级3 [2]表示LDT[1]
+	"pushl $1f\n\t" \					// eip 入栈，1f 即表示下面标号 1 的偏移地址
+	"iret\n" \							// 执行 iret 后就会跳转都标号 1 处
+	"1:\tmovl $0x17,%%eax\n\t" \		// 此处开始执行任务 0
+	"movw %%ax,%%ds\n\t" \				// 将 ds,es,fs,gs 都设置为跟 ss 一样
+	"movw %%ax,%%es\n\t" \
+	"movw %%ax,%%fs\n\t" \
+	"movw %%ax,%%gs" \
+	:::"ax")
+```
+
+中断发生时由硬件完成现场保护，这里就通过压栈模拟了硬件保护现场的动作，然后执行 iret 指令恢复寄存器值，通过段描述符标志位的变化实现了特权级翻转。还要注意的是，之前将 EFLAGS 寄存器的 NT 标志位置零，则此处的 iret 不会导致任务切换。到此，进程 0 完成特权级转变成为名副其实的进程。
+
+![](initial_and_create_process_0.png)
+
+接下来进程 0 要做第一项工作，创建进程 1。
