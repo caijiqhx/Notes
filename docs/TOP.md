@@ -26,3 +26,5 @@ $ vmware-vdiskmanager -k target.vmdk
 
 此方法需要虚拟机关机且无快照
 
+#### test 指令咋总记不住
+
