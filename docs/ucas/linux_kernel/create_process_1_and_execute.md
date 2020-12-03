@@ -422,7 +422,7 @@ ret_from_sys_call:
 	iret
 ```
 
-将返回值即 pid 入栈，然后判断当前进程状态，如果不是就绪态或时间片用尽则进程调度。然后执行 ret\_from\_sys\_call 程序，对于进程 0 则直接套转到标号 3 返回，其他情况还需要进程信号量处理。最后就是恢复寄存器值，eax 值即为进程 1 的 pid，iret 中断返回，由硬件恢复另外几个寄存器。此时的 CS:EIP 即指向 fork 函数中的 if 语句一行，返回值为 1，则返回到 main 函数，fork 在父进程中返回非 0，所以不会执行 init 函数，而是进入 pause 循环。
+将返回值即 pid 入栈，然后判断当前进程状态，如果不是就绪态或时间片用尽则进程调度。然后执行 ret\_from\_sys\_call 程序，对于进程 0 则直接跳转到标号 3 返回，其他情况还需要进程信号量处理。最后就是恢复寄存器值，eax 值即为进程 1 的 pid，iret 中断返回，由硬件恢复另外几个寄存器。此时的 CS:EIP 即指向 fork 函数中的 if 语句一行，返回值为 1，则返回到 main 函数，fork 在父进程中返回非 0，所以不会执行 init 函数，而是进入 pause 循环。
 
 返回路径：`ret_from_sys_call => fork => main => pause `
 
@@ -552,8 +552,7 @@ static struct hd_struct {
 // 系统设置函数
 // 参数 BIOS 是 main 函数里初始化的 drive_info 硬盘参数表结构指针，是由 setup.s 程序获取放到内存 0x90080 处
 // 本函数主要是读取 CMOS 和硬盘参数表信息，设置硬盘分区结构 hd，并尝试加载 RAM 虚拟盘和根文件系统
-int sys_setup(void * BIOS)
-{
+int sys_setup(void * BIOS) {
 	static int callable = 1;
 	int i,drive;
 	unsigned char cmos_disks;
@@ -593,28 +592,202 @@ int sys_setup(void * BIOS)
 	// 用 bread 读硬盘第一个扇区，读成功则将数据会被存放在缓冲块 bh，还要判断扇区末尾两个字节是否是 0xAA55
 	// 然后验证扇区中 0x1BE 偏移开始处的分区表是否有效，有效则存入 hd[] 中，最后释放缓冲区
 	for (drive=0 ; drive<NR_HD ; drive++) {
-		if (!(bh = bread(0x300 + drive*5,0))) {
+		if (!(bh = bread(0x300 + drive*5,0))) { 
 			printk("Unable to read partition table of drive %d\n\r",
 				drive);
 			panic("");
 		}
-		if (bh->b_data[510] != 0x55 || (unsigned char)
-		    bh->b_data[511] != 0xAA) {
-			printk("Bad partition table on drive %d\n\r",drive);
-			panic("");
-		}
-		p = 0x1BE + (void *)bh->b_data;
-		for (i=1;i<5;i++,p++) {
-			hd[i+5*drive].start_sect = p->start_sect;
-			hd[i+5*drive].nr_sects = p->nr_sects;
-		}
-		brelse(bh);
-	}
-	if (NR_HD)
-		printk("Partition table%s ok.\n\r",(NR_HD>1)?"s":"");
-	rd_load();			// 尝试创建并加载虚拟盘
-	mount_root();		// 安装根文件系统
-	return (0);
+    ...
 }
 ```
 
+读硬盘参数表设置 hd\_info，然后要设置磁盘分区结构 hd[]，这个数组的 0、5 是两块硬盘的整体参数，而其他几项则是代表两块硬盘各最多 4 个分区的参数。
+
+#### 读取硬盘中的引导块到缓冲区
+
+硬盘的分区表信息存在引导块即 0 号块，一个块 1024 Bytes，真正有用的是 0 号扇区，调用 bread 函数将引导块读入缓冲区 bh 处，代码如下：
+
+```c
+// 从设备上读取数据块。
+struct buffer_head * bread(int dev,int block) {
+	struct buffer_head * bh;
+
+	if (!(bh=getblk(dev,block)))
+		panic("bread: getblk returned NULL\n");
+	if (bh->b_uptodate)
+		return bh;
+    ...
+}
+```
+
+bread 函数根据设备号和数据块号读取数据，首先在缓冲区申请一个缓冲块，调用 getblk 函数，代码如下：
+
+```c
+// 取高速缓冲中指定的缓冲块
+// 检查指定（设备号和块号）的缓冲区是否已经在高速缓冲中。如果指定块已经在
+// 高速缓冲中，则返回对应缓冲区头指针退出；如果不在，就需要在高速缓冲中设置一个
+// 对应设备号和块好的新项。返回相应的缓冲区头指针。
+struct buffer_head * getblk(int dev,int block)
+{
+	struct buffer_head * tmp, * bh;
+
+repeat:
+    // 搜索hash表，如果指定块已经在高速缓冲中，则返回对应缓冲区头指针，退出。
+	if ((bh = get_hash_table(dev,block)))
+		return bh;
+	...
+}
+```
+
+getblk 函数检查由设备号和块号指定的数据是否在缓冲区中，如果在就不用再到设备上读取，使用哈希表查找提高速度，调用 get\_hash\_table 函数，代码如下：
+
+```c
+// 利用hash表在高速缓冲区中寻找指定的缓冲块。若找到则对该缓冲块上锁返回块头指针。
+struct buffer_head * get_hash_table(int dev, int block) {
+	struct buffer_head * bh;
+
+	for (;;) {
+        // 在高速缓冲中寻找给定设备和指定块的缓冲区块，如果没有找到则返回NULL。
+		if (!(bh=find_buffer(dev,block)))
+			return NULL;
+        // 对该缓冲块增加引用计数，并等待该缓冲块解锁。由于经过了睡眠状态，
+        // 因此有必要在验证该缓冲块的正确性，并返回缓冲块头指针。
+		bh->b_count++;
+		wait_on_buffer(bh);
+		if (bh->b_dev == dev && bh->b_blocknr == block)
+			return bh;
+        // 如果在睡眠时该缓冲块所属的设备号或块设备号发生了改变，则撤消对它的
+        // 引用计数，重新寻找。
+		bh->b_count--;
+	}
+}
+```
+
+调用 find\_buffer 找指定块，代码如下：
+
+```c
+#define _hashfn(dev,block) (((unsigned)(dev^block))%NR_HASH)
+#define hash(dev,block) hash_table[_hashfn(dev,block)]
+static struct buffer_head * find_buffer(int dev, int block) {		
+	struct buffer_head * tmp;
+
+    // 搜索hash表，寻找指定设备号和块号的缓冲块。
+	for (tmp = hash(dev,block) ; tmp != NULL ; tmp = tmp->b_next)
+		if (tmp->b_dev==dev && tmp->b_blocknr==block)
+			return tmp;
+	return NULL;
+}
+```
+
+设备号和块号通过哈希函数映射为索引插入到 hash\_table 对应项的链表，查找就计算索引然后查那个位置的链表，第一次查找肯定是 NULL，就返回到 getblk 函数，在空闲链表中申请一个新的空闲缓冲块，代码如下：
+
+```c
+struct buffer_head * getblk(int dev,int block)
+{
+	struct buffer_head * tmp, * bh;
+
+repeat:
+    // 搜索hash表，如果指定块已经在高速缓冲中，则返回对应缓冲区头指针，退出。
+	if ((bh = get_hash_table(dev,block)))
+		return bh;
+    // 扫描空闲数据块链表，寻找空闲缓冲区。
+    // 首先让tmp指向空闲链表的第一个空闲缓冲区头
+	tmp = free_list;
+	do {
+		if (tmp->b_count)
+			continue;
+        
+		if (!bh || BADNESS(tmp)<BADNESS(bh)) {
+			bh = tmp;
+			if (!BADNESS(tmp))
+				break;
+		}
+/* and repeat until we find something good */
+	} while ((tmp = tmp->b_next_free) != free_list);
+    // 没有引用计数为 0 的块就睡眠等待唤醒
+	if (!bh) {
+		sleep_on(&buffer_wait);
+		goto repeat;
+	}
+    // 执行到这里，说明我们已经找到了一个比较合适的空闲缓冲块了。于是先等待该缓冲区
+    // 解锁。如果在我们睡眠阶段该缓冲区又被其他任务使用的话，只好重复上述寻找过程。
+	wait_on_buffer(bh);
+	if (bh->b_count)
+		goto repeat;
+    // 如果该缓冲区已被修改，则将数据写盘，并再次等待缓冲区解锁。同样地，若该缓冲区
+    // 又被其他任务使用的话，只好再重复上述寻找过程。
+	while (bh->b_dirt) {
+		sync_dev(bh->b_dev);
+		wait_on_buffer(bh);
+		if (bh->b_count)
+			goto repeat;
+	}
+
+    // 在高速缓冲hash表中检查指定设备和块的缓冲块是否乘我们睡眠之际已经被加入
+    // 进去。如果是的话，就再次重复上述寻找过程。
+	if (find_buffer(dev,block))
+		goto repeat;
+
+    // 于是让我们占用此缓冲块。置引用计数为1，复位修改标志和有效(更新)标志。
+	bh->b_count=1;
+	bh->b_dirt=0;
+	bh->b_uptodate=0;
+    // 从hash队列和空闲队列块链表中移出该缓冲区头，让该缓冲区用于指定设备和其上的指定块。
+    // 然后根据此新的设备号和块号重新插入空闲链表和hash队列新位置处。并最终返回缓冲头指针。
+	remove_from_queues(bh);
+	bh->b_dev=dev;
+	bh->b_blocknr=block;
+	insert_into_queues(bh);
+	return bh;
+}
+```
+
+free\_list 就是在初始化缓冲区时建立的 buffer\_head 链表，现在空闲链表里检索一个引用计数、脏位、锁定位都为 0 的缓冲块，如果未找到引用计数为 0 的块，则睡眠等待有空闲块可用，这里第一次调用肯定会找到合适的块，就先不看 sleep\_on 函数。如果选定的块被加锁，就要睡眠等待，如果睡眠的时候这个块又被其他进程使用，那么就有好回到 repeat 处重新来，如果缓冲区已被修改则需要写回硬盘，再等待缓冲区解锁，同样，如果又被其他任务使用还得重来。还有就是睡眠等待过程中如果要读的块已经被读入到缓冲区，那么又不用读了，还是重来。
+
+一切都完成后，如果还是需要读入到缓冲区，那就将找到的空闲块引用计数 +1，然后将其对应的 buffer\_head 从从 free\_list 和 hash\_table 的链表中摘下来，然后插入 free\_list 的尾部以及新的 hash\_table 项的链表中。	
+
+![image-20201201192001203](image-20201201192001203.png)
+
+执行完 get\_blk，返回到 bread 函数，获取了缓冲块，检查块中数据是否有效（已更新），第一次调用肯定不能直接用，所以还是要从硬盘中读，调用底层块设备读写函数，产生指定数据块被读入，代码如下
+
+```c
+// 从设备上读取数据块
+struct buffer_head * bread(int dev,int block) {
+	struct buffer_head * bh;
+
+	if (!(bh=getblk(dev,block)))
+		panic("bread: getblk returned NULL\n");
+	if (bh->b_uptodate)
+		return bh;
+    // 否则我们就调用底层块设备读写ll_rw_block函数，产生读设备块请求。
+   	// 然后等待指定数据块被读入，并等待缓冲区解锁。
+	ll_rw_block(READ,bh);
+	wait_on_buffer(bh);
+	if (bh->b_uptodate)
+		return bh;
+	brelse(bh);
+	return NULL;
+}
+```
+
+#### 将找到的缓冲块与请求项挂接
+
+调用 ll\_rw\_block 函数，将缓冲块与请求项结构挂接，代码如下：
+
+```c
+#define MAJOR(a) (((unsigned)(a))>>8)
+// 底层读写数据块函数 Low Level Read Write Block
+void ll_rw_block(int rw, struct buffer_head * bh)
+{
+	unsigned int major;
+	// 判断缓冲块对应的设备是否存在以及设备请求项函数是否挂接正常
+	if ((major=MAJOR(bh->b_dev)) >= NR_BLK_DEV ||
+	!(blk_dev[major].request_fn)) {
+		printk("Trying to read nonexistent block-device\n\r");
+		return;
+	}
+	make_request(major,rw,bh);
+}
+```
+
+这里的设备就是硬盘，对应的请求函数就是 do\_hd\_request，在硬盘初始化中设置。然后调用 make\_request 函数将缓冲块与请求项建立关系，之后的就不贴代码了。

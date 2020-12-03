@@ -1,3 +1,5 @@
+[toc]
+
 # 设备环境初始化及激活进程 0
 
 从现在开始执行 main 函数！
@@ -261,6 +263,8 @@ void blk_dev_init(void) {
 ```
 
 操作系统根据所有进程读写任务的轻重缓急，决定缓冲块与块设备之间的读写操作，并把需要操作的缓冲块记录在请求项上，得到读写块设备操作指令后，只根据请求项中的记录来决定当前需要处理哪个设备的哪个逻辑块。
+
+![image-20201202174540086](image-20201202174540086.png)
 
 <img src="image-20201122172746795.png" alt="image-20201122172746795" style="zoom:50%;" />
 
@@ -709,7 +713,7 @@ void buffer_init(long buffer_end)
 			b = (void *) 0xA0000;           // 让b指向地址0xA0000(640KB)处
 	}
 	h--;                                    // 让h指向最后一个有效缓冲块头
-	free_list = start_buffer;               // 让空闲链表头指向头一个缓冲快
+	free_list = start_buffer;               // 让空闲链表头指向头一个缓冲块
 	free_list->b_prev_free = h;             // 链表头的b_prev_free指向前一项(即最后一项)。
 	h->b_next_free = free_list;             // h的下一项指针指向第一项，形成一个环链
     // 最后初始化hash表，置表中所有指针为NULL。
