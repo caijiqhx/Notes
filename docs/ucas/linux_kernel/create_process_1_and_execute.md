@@ -790,4 +790,10 @@ void ll_rw_block(int rw, struct buffer_head * bh)
 }
 ```
 
-这里的设备就是硬盘，对应的请求函数就是 do\_hd\_request，在硬盘初始化中设置。然后调用 make\_request 函数将缓冲块与请求项建立关系，之后的就不贴代码了。
+这里的设备就是硬盘，对应的请求函数就是 do\_hd\_request，在硬盘初始化中设置。然后调用 make\_request 函数将缓冲块与请求项建立关系。
+
+后面就是加载虚拟盘、安装根文件系统的操作。
+
+最后进程 1 通过 fork 创建进程 2，并使用 execve 将进程替换成 /bin/sh 程序，加载 rc。
+
+最后切换到 shell 执行，实现系统怠速。
