@@ -118,6 +118,7 @@ nav:
       - database/theory.md
       - database/sql.md
       - database/mysql.md
+      - database/sqlite.md
   - UCAS:
       - ucas/index.md
       - 虚拟化概述: ucas/virtualization_overview/virtualization.md
@@ -130,6 +131,7 @@ nav:
           - ucas/linux_kernel/index.md
           - ucas/linux_kernel/boot_to_main.md
           - ucas/linux_kernel/initial_and_create_process_0.md
+          - ucas/linux_kernel/create_process_1_and_execute.md
 
 # Customization
 extra_javascript:
