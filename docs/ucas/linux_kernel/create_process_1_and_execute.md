@@ -797,3 +797,5 @@ void ll_rw_block(int rw, struct buffer_head * bh)
 最后进程 1 通过 fork 创建进程 2，并使用 execve 将进程替换成 /bin/sh 程序，加载 rc。
 
 最后切换到 shell 执行，实现系统怠速。
+
+到此其实就了解了 Linux 的启动过程，但是感觉 0.11 太早期了，像页目录表还是 64 个进程共享，每个进程 64 MB，准备读一下《Linux 内核设计与实现》那本。
