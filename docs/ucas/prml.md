@@ -30,7 +30,7 @@ $$
 
 2. 若 $X$ 是离散型随机变量，其可能取值为 $x_k, k = 1, 2, ...$，且 $P(X=x_k) = p_k$，则（当级数绝对收敛时）
    $$
-   m = E(X) = \sum_{k=1}^\infty x_kp_k
+   m = E(X) = \sum_{k=1}^\infty x_kp_k\\
    D(X) = \sum_{k=1}^\infty(x_k - m)^2p_k
    $$
 
