@@ -1,10 +1,6 @@
 # Linux Kernel 学习
 
 > 《Linux 内核设计的艺术》
-> 
-> 《Linux 内核完全注释》
-> 
-> 《Linux 内核设计与实现》
 >
 > Linux 0.11
 
@@ -18,7 +14,7 @@
 
 进入 main 函数
 
-### 第 3 章 进程 1 的创建及执行
+### [第 3 章 进程 1 的创建及执行](./create_process_1_and_execute.md)
 
 fork 系统调用
 
