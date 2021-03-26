@@ -70,6 +70,12 @@ alias s='source ~/.zshrc'
 alias cls='clear'
 ```
 
+`ohmyzsh` 手动更新：
+
+```shell
+proxychains ~/.oh-my-zsh/tools/upgrade.sh
+```
+
 ## 通用文件夹设置为英文
 
 先转成英文强制更新目录然后转回中文
