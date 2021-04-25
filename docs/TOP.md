@@ -2,6 +2,10 @@
 
 > 2020/11/22 随查随记
 
+#### 自建 overleaf
+
+用 nginx 反代 overleaf 的时候要添加 `client_max_body_size 50M;`，默认值是 1M，就上传不了压缩包了。
+
 #### 网盘
 
 MEGA 还是很好用的，免费基础 15 G，下载电脑端和移动端之后有 180 天内 70G 存储 + 70G 传输的 bonus。Pro Lite 400GB 存储 + 1TB 传输，4.99€/月，还可以。
