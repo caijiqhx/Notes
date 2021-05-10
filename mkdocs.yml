@@ -27,6 +27,12 @@ nav:
           - IDA: tools/ida.md
   - Rust:
       - rust/index.md
+      - Rust 程序设计语言:
+          - rust/trpl/index.md
+          - rust/trpl/0x00.md
+          - rust/trpl/0x01.md
+          - rust/trpl/0x02.md
+          - rust/trpl/0x03.md
   - C++:
       - cpp/index.md
       - cpp/memo.md
