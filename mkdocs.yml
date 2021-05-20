@@ -33,6 +33,15 @@ nav:
           - rust/trpl/0x01.md
           - rust/trpl/0x02.md
           - rust/trpl/0x03.md
+          - rust/trpl/0x04.md
+          - rust/trpl/0x05.md
+          - rust/trpl/0x06.md
+          - rust/trpl/0x07.md
+          - rust/trpl/0x08.md
+      - Rustlings:
+          - rust/rustlings/index.md
+          - rust/rustlings/move_semantics2.md
+          - rust/rustlings/move_semantics3.md
   - C++:
       - cpp/index.md
       - cpp/memo.md
