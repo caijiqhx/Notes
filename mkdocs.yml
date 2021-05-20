@@ -144,6 +144,9 @@ nav:
           - ucas/zombieload/zombieload.md
           - ucas/zombieload/zombieload_script.md
       - Spectre: ucas/spectre/spectre.md
+      - ZombieLoad:
+          - ucas/zombieload/zombieload.md
+          - ucas/zombieload/zombieload_script.md
       - QEMU/KVM:
           - ucas/qemu_kvm/index.md
           - ucas/qemu_kvm/qemu_kvm_overview.md
