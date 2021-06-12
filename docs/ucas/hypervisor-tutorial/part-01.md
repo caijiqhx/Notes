@@ -1,6 +1,6 @@
 ### Part 1: Basic Concepts & Configure Testing Environment
 
-> 2021.01.05 https://rayanfam.com/topics/hypervisor-from-scratch-part-1/
+> ~~2021.01.05~~ 2021.06.09 https://rayanfam.com/topics/hypervisor-from-scratch-part-1/
 
 VT-x, vmx, **V**irtual **M**achine e**X**tension
 
