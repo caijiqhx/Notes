@@ -2,6 +2,12 @@
 
 > 2020/11/22 随查随记
 
+#### 大需求 AutoHotKey ！！！
+
+之前都在用 Terminus，主要是因为 Windows Terminal 不支持全透明只有模糊透明，所以只能忍受 Terminus 慢得要死的速度。
+
+今天发现可以通过 AutoHotKey 调节窗口透明度，终于可以有快速的终端体验了。而且 AutoHotKey 这个东西是真滴牛🐮🍺，把各种 Win API 封装成一个脚本语言，可以很方便地绑定键盘等操作。
+
 #### 自建 overleaf
 
 用 nginx 反代 overleaf 的时候要添加 `client_max_body_size 50M;`，默认值是 1M，就上传不了压缩包了。
